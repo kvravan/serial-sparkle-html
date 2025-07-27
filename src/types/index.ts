@@ -41,6 +41,17 @@ export interface ASN {
   created_date: Date;
   updated_date: Date;
   items: ASNItem[];
+  packaging_hierarchy?: PackagingNode;
+}
+
+export interface PackagingNode {
+  id: string;
+  name: string;
+  type: 'shipment' | 'container' | 'pallet' | 'carton' | 'box' | 'unit';
+  dimensions?: string;
+  serial_number?: string;
+  part_number?: string;
+  children?: PackagingNode[];
 }
 
 export interface ASNItem {

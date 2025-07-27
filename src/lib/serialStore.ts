@@ -730,7 +730,150 @@ class SerialStoreManager {
               }
             ]
           }
-        ]
+        ],
+        packaging_hierarchy: {
+          id: 'hierarchy1',
+          name: 'Main Shipment',
+          type: 'shipment',
+          children: [
+            {
+              id: 'container1',
+              name: 'Ocean Container CONT-001',
+              type: 'container',
+              dimensions: '40ft x 8ft x 8.5ft',
+              children: [
+                {
+                  id: 'pallet1',
+                  name: 'Pallet PAL-001',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton1',
+                      name: 'Master Carton MC-001',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box1',
+                          name: 'Inner Box IB-001',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit1',
+                              name: 'Unit U-001',
+                              type: 'unit',
+                              serial_number: 'CPU001X7001',
+                              part_number: 'CPU-001-X7'
+                            },
+                            {
+                              id: 'unit2',
+                              name: 'Unit U-002',
+                              type: 'unit',
+                              serial_number: 'CPU001X7002',
+                              part_number: 'CPU-001-X7'
+                            }
+                          ]
+                        },
+                        {
+                          id: 'box2',
+                          name: 'Inner Box IB-002',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit3',
+                              name: 'Unit U-003',
+                              type: 'unit',
+                              serial_number: 'CPU001X7003',
+                              part_number: 'CPU-001-X7'
+                            },
+                            {
+                              id: 'unit4',
+                              name: 'Unit U-004',
+                              type: 'unit',
+                              serial_number: 'CPU001X7004',
+                              part_number: 'CPU-001-X7'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton2',
+                      name: 'Master Carton MC-002',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box3',
+                          name: 'Inner Box IB-003',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit5',
+                              name: 'Unit U-005',
+                              type: 'unit',
+                              serial_number: 'MEM002DDR5001',
+                              part_number: 'MEM-002-DDR5'
+                            },
+                            {
+                              id: 'unit6',
+                              name: 'Unit U-006',
+                              type: 'unit',
+                              serial_number: 'MEM002DDR5002',
+                              part_number: 'MEM-002-DDR5'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: 'pallet2',
+                  name: 'Pallet PAL-002',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton3',
+                      name: 'Master Carton MC-003',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box4',
+                          name: 'Inner Box IB-004',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit7',
+                              name: 'Unit U-007',
+                              type: 'unit',
+                              serial_number: 'SSD003NVME001',
+                              part_number: 'SSD-003-NVMe'
+                            },
+                            {
+                              id: 'unit8',
+                              name: 'Unit U-008',
+                              type: 'unit',
+                              serial_number: 'SSD003NVME002',
+                              part_number: 'SSD-003-NVMe'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         id: '2',
@@ -799,7 +942,120 @@ class SerialStoreManager {
               }
             ]
           }
-        ]
+        ],
+        packaging_hierarchy: {
+          id: 'hierarchy2',
+          name: 'Gaming Components Shipment',
+          type: 'shipment',
+          children: [
+            {
+              id: 'container2',
+              name: 'Air Freight Container AFC-001',
+              type: 'container',
+              dimensions: '20ft x 8ft x 8.5ft',
+              children: [
+                {
+                  id: 'pallet3',
+                  name: 'Pallet PAL-003',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton4',
+                      name: 'Master Carton MC-004',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box5',
+                          name: 'Inner Box IB-005',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit9',
+                              name: 'Unit U-009',
+                              type: 'unit',
+                              serial_number: 'GPU004RTX001',
+                              part_number: 'GPU-004-RTX'
+                            },
+                            {
+                              id: 'unit10',
+                              name: 'Unit U-010',
+                              type: 'unit',
+                              serial_number: 'GPU004RTX002',
+                              part_number: 'GPU-004-RTX'
+                            }
+                          ]
+                        },
+                        {
+                          id: 'box6',
+                          name: 'Inner Box IB-006',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit11',
+                              name: 'Unit U-011',
+                              type: 'unit',
+                              serial_number: 'MB005Z690001',
+                              part_number: 'MB-005-Z690'
+                            },
+                            {
+                              id: 'unit12',
+                              name: 'Unit U-012',
+                              type: 'unit',
+                              serial_number: 'MB005Z690002',
+                              part_number: 'MB-005-Z690'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: 'pallet4',
+                  name: 'Pallet PAL-004',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton5',
+                      name: 'Master Carton MC-005',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box7',
+                          name: 'Inner Box IB-007',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit13',
+                              name: 'Unit U-013',
+                              type: 'unit',
+                              serial_number: 'FAN009120MM001',
+                              part_number: 'FAN-009-120MM'
+                            },
+                            {
+                              id: 'unit14',
+                              name: 'Unit U-014',
+                              type: 'unit',
+                              serial_number: 'FAN009120MM002',
+                              part_number: 'FAN-009-120MM'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         id: '3',
@@ -842,7 +1098,90 @@ class SerialStoreManager {
               }
             ]
           }
-        ]
+        ],
+        packaging_hierarchy: {
+          id: 'hierarchy3',
+          name: 'Power & Case Shipment',
+          type: 'shipment',
+          children: [
+            {
+              id: 'container3',
+              name: 'Truck Container TRC-001',
+              type: 'container',
+              dimensions: '53ft x 8.5ft x 8.5ft',
+              children: [
+                {
+                  id: 'pallet5',
+                  name: 'Pallet PAL-005',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton6',
+                      name: 'Master Carton MC-006',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box8',
+                          name: 'Inner Box IB-008',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit15',
+                              name: 'Unit U-015',
+                              type: 'unit',
+                              serial_number: 'PSU006850W001',
+                              part_number: 'PSU-006-850W'
+                            },
+                            {
+                              id: 'unit16',
+                              name: 'Unit U-016',
+                              type: 'unit',
+                              serial_number: 'PSU006850W002',
+                              part_number: 'PSU-006-850W'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton7',
+                      name: 'Master Carton MC-007',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box9',
+                          name: 'Inner Box IB-009',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit17',
+                              name: 'Unit U-017',
+                              type: 'unit',
+                              serial_number: 'CASE007ATX001',
+                              part_number: 'CASE-007-ATX'
+                            },
+                            {
+                              id: 'unit18',
+                              name: 'Unit U-018',
+                              type: 'unit',
+                              serial_number: 'CASE007ATX002',
+                              part_number: 'CASE-007-ATX'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         id: '4',
@@ -911,7 +1250,98 @@ class SerialStoreManager {
               }
             ]
           }
-        ]
+        ],
+        packaging_hierarchy: {
+          id: 'hierarchy4',
+          name: 'Peripherals Shipment',
+          type: 'shipment',
+          children: [
+            {
+              id: 'container4',
+              name: 'Ocean Container CONT-002',
+              type: 'container',
+              dimensions: '40ft x 8ft x 8.5ft',
+              children: [
+                {
+                  id: 'pallet6',
+                  name: 'Pallet PAL-006',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton8',
+                      name: 'Master Carton MC-008',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box10',
+                          name: 'Inner Box IB-010',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit19',
+                              name: 'Unit U-019',
+                              type: 'unit',
+                              serial_number: 'MON01027IN001',
+                              part_number: 'MON-010-27IN'
+                            },
+                            {
+                              id: 'unit20',
+                              name: 'Unit U-020',
+                              type: 'unit',
+                              serial_number: 'MON01027IN002',
+                              part_number: 'MON-010-27IN'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: 'pallet7',
+                  name: 'Pallet PAL-007',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton9',
+                      name: 'Master Carton MC-009',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box11',
+                          name: 'Inner Box IB-011',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit21',
+                              name: 'Unit U-021',
+                              type: 'unit',
+                              serial_number: 'KB011MECH001',
+                              part_number: 'KB-011-MECH'
+                            },
+                            {
+                              id: 'unit22',
+                              name: 'Unit U-022',
+                              type: 'unit',
+                              serial_number: 'KB011MECH002',
+                              part_number: 'KB-011-MECH'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         id: '5',
@@ -974,7 +1404,60 @@ class SerialStoreManager {
               }
             ]
           }
-        ]
+        ],
+        packaging_hierarchy: {
+          id: 'hierarchy5',
+          name: 'Networking & Cables Shipment',
+          type: 'shipment',
+          children: [
+            {
+              id: 'container5',
+              name: 'Air Freight Container AFC-002',
+              type: 'container',
+              dimensions: '20ft x 8ft x 8.5ft',
+              children: [
+                {
+                  id: 'pallet8',
+                  name: 'Pallet PAL-008',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton10',
+                      name: 'Master Carton MC-010',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box12',
+                          name: 'Inner Box IB-012',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit23',
+                              name: 'Unit U-023',
+                              type: 'unit',
+                              serial_number: 'NET013WIFI6001',
+                              part_number: 'NET-013-WIFI6'
+                            },
+                            {
+                              id: 'unit24',
+                              name: 'Unit U-024',
+                              type: 'unit',
+                              serial_number: 'NET013WIFI6002',
+                              part_number: 'NET-013-WIFI6'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         id: '6',
@@ -1037,7 +1520,90 @@ class SerialStoreManager {
               }
             ]
           }
-        ]
+        ],
+        packaging_hierarchy: {
+          id: 'hierarchy6',
+          name: 'Audio & Video Shipment',
+          type: 'shipment',
+          children: [
+            {
+              id: 'container6',
+              name: 'Truck Container TRC-002',
+              type: 'container',
+              dimensions: '53ft x 8.5ft x 8.5ft',
+              children: [
+                {
+                  id: 'pallet9',
+                  name: 'Pallet PAL-009',
+                  type: 'pallet',
+                  dimensions: '48in x 40in x 6in',
+                  children: [
+                    {
+                      id: 'carton11',
+                      name: 'Master Carton MC-011',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box13',
+                          name: 'Inner Box IB-013',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit25',
+                              name: 'Unit U-025',
+                              type: 'unit',
+                              serial_number: 'SPEAKER0162.1001',
+                              part_number: 'SPEAKER-016-2.1'
+                            },
+                            {
+                              id: 'unit26',
+                              name: 'Unit U-026',
+                              type: 'unit',
+                              serial_number: 'SPEAKER0162.1002',
+                              part_number: 'SPEAKER-016-2.1'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton12',
+                      name: 'Master Carton MC-012',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box14',
+                          name: 'Inner Box IB-014',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit27',
+                              name: 'Unit U-027',
+                              type: 'unit',
+                              serial_number: 'MIC017CONDENSER001',
+                              part_number: 'MIC-017-CONDENSER'
+                            },
+                            {
+                              id: 'unit28',
+                              name: 'Unit U-028',
+                              type: 'unit',
+                              serial_number: 'MIC017CONDENSER002',
+                              part_number: 'MIC-017-CONDENSER'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       }
     ];
   }
