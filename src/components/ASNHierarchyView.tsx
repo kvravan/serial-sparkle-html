@@ -345,34 +345,38 @@ export const ASNHierarchyView = ({ asn, onAssignToNode }: ASNHierarchyViewProps)
   return (
     <div className="h-full flex flex-col">
       <Tabs defaultValue="items" className="h-full flex flex-col">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-2 mb-4">
           <TabsTrigger value="items">Items & Lots</TabsTrigger>
           <TabsTrigger value="packages">Packing Structure</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="items" className="mt-6 flex-1 overflow-hidden">
-          <div className="h-full overflow-y-auto pr-2 space-y-4" style={{ maxHeight: 'calc(70vh - 120px)' }}>
-            {asn.items.map((item) => (
-              <ItemNode key={item.id} item={item} />
-            ))}
-            
-            {asn.items.length === 0 && (
-              <div className="text-center py-12">
-                <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">No items found</h3>
-                <p className="text-muted-foreground">
-                  This ASN doesn't have any items defined yet.
-                </p>
-              </div>
-            )}
+        <TabsContent value="items" className="flex-1 overflow-hidden">
+          <div className="h-full border rounded-lg">
+            <div className="h-full overflow-y-auto p-4 space-y-4" style={{ maxHeight: '500px' }}>
+              {asn.items.map((item) => (
+                <ItemNode key={item.id} item={item} />
+              ))}
+              
+              {asn.items.length === 0 && (
+                <div className="text-center py-12">
+                  <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-medium mb-2">No items found</h3>
+                  <p className="text-muted-foreground">
+                    This ASN doesn't have any items defined yet.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </TabsContent>
 
-        <TabsContent value="packages" className="mt-6 flex-1 overflow-hidden">
-          <div className="h-full overflow-y-auto pr-2 space-y-4" style={{ maxHeight: 'calc(70vh - 120px)' }}>
-            {mockPackageStructure.map((packageData) => (
-              <PackageNode key={packageData.id} packageData={packageData} />
-            ))}
+        <TabsContent value="packages" className="flex-1 overflow-hidden">
+          <div className="h-full border rounded-lg">
+            <div className="h-full overflow-y-auto p-4 space-y-4" style={{ maxHeight: '500px' }}>
+              {mockPackageStructure.map((packageData) => (
+                <PackageNode key={packageData.id} packageData={packageData} />
+              ))}
+            </div>
           </div>
         </TabsContent>
       </Tabs>
