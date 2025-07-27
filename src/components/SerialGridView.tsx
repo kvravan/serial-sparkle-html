@@ -169,17 +169,14 @@ export const SerialGridView = ({
   return (
     <div className="space-y-6 h-full flex flex-col">
       <div className="flex items-center space-x-4">
-        <Button variant="ghost" onClick={onClose} className="h-8 w-8 p-0">
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
+        {showBackButton && (
+          <Button variant="ghost" onClick={onClose} className="h-8 w-8 p-0">
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+        )}
         <div>
-          <h2 className="text-2xl font-bold">Serial Assignment</h2>
-          <p className="text-muted-foreground">
-            {assignmentContext 
-              ? `Assigning to ${assignmentContext.type}: ${assignmentContext.name}`
-              : asn.asn_number
-            }
-          </p>
+          <h2 className="text-2xl font-bold">Serial Grid View</h2>
+          <p className="text-muted-foreground">{asn.asn_number}</p>
         </div>
       </div>
 
@@ -318,7 +315,7 @@ export const SerialGridView = ({
             </Button>
           </div>
           
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto relative">
             {filteredInventorySerials.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredInventorySerials.map((serial) => (
@@ -363,6 +360,38 @@ export const SerialGridView = ({
           )}
         </TabsContent>
       </Tabs>
+
+      {/* Sticky Action Bar */}
+      {selectedSerials.size > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 bg-background border-t shadow-lg z-50">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <Badge variant="default" className="text-lg px-3 py-1">
+                  {selectedSerials.size} serials selected
+                </Badge>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setSelectedSerials(new Set())}
+                >
+                  Clear Selection
+                </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button onClick={() => handleAssignSelected()} size="lg">
+                  Assign to Item
+                </Button>
+                <Button variant="outline" onClick={() => handleAssignSelected()} size="lg">
+                  Assign to Lot
+                </Button>
+                <Button variant="outline" onClick={() => handleAssignSelected()} size="lg">
+                  Assign to Package
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { ASN } from "@/types";
 import { useSerialStore } from "@/hooks/useSerialStore";
 import { ASNHierarchyView } from "./ASNHierarchyView";
 import { SerialGridView } from "./SerialGridView";
+import { AssignSerialsPopup } from "./AssignSerialsPopup";
 
 interface ASNSerialAssignmentPopupProps {
   asn: ASN;
@@ -28,6 +29,15 @@ export const ASNSerialAssignmentPopup = ({ asn, open, onClose }: ASNSerialAssign
       name: string;
     };
   }>({ show: false });
+  const [showAssignPopup, setShowAssignPopup] = useState<{
+    show: boolean;
+    partNumbers: string[];
+    assignmentContext: {
+      type: 'item' | 'lot' | 'package';
+      id: string;
+      name: string;
+    };
+  } | null>(null);
 
   useEffect(() => {
     if (open && asn) {
@@ -41,7 +51,7 @@ export const ASNSerialAssignmentPopup = ({ asn, open, onClose }: ASNSerialAssign
   };
 
   const handleAssignToNode = (partNumbers: string[], context: { type: 'item' | 'lot' | 'package'; id: string; name: string }) => {
-    setShowSerialGrid({
+    setShowAssignPopup({
       show: true,
       partNumbers,
       assignmentContext: context
@@ -50,6 +60,16 @@ export const ASNSerialAssignmentPopup = ({ asn, open, onClose }: ASNSerialAssign
 
   const handleCloseSerialGrid = () => {
     setShowSerialGrid({ show: false });
+  };
+
+  const handleCloseAssignPopup = () => {
+    setShowAssignPopup(null);
+  };
+
+  const handleAssignComplete = (serialIds: string[]) => {
+    console.log('Assigned serials:', serialIds);
+    loadBlockedSerials(); // Refresh the blocked serials count
+    setShowAssignPopup(null);
   };
 
   if (showSerialGrid.show) {
@@ -62,6 +82,7 @@ export const ASNSerialAssignmentPopup = ({ asn, open, onClose }: ASNSerialAssign
             assignmentContext={showSerialGrid.assignmentContext}
             onClose={handleCloseSerialGrid}
             contextLaunched={true}
+            showBackButton={true}
           />
         </DialogContent>
       </Dialog>
@@ -69,27 +90,56 @@ export const ASNSerialAssignmentPopup = ({ asn, open, onClose }: ASNSerialAssign
   }
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
-        <DialogHeader>
-          <div className="flex items-center space-x-4">
-            <div>
-              <DialogTitle className="text-2xl font-bold">Assign Serials</DialogTitle>
-              <p className="text-muted-foreground">{asn.asn_number}</p>
+    <>
+      <Dialog open={open} onOpenChange={onClose}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
+          <DialogHeader>
+            <div className="flex items-center space-x-4">
+              <div>
+                <DialogTitle className="text-2xl font-bold">Assign Serials</DialogTitle>
+                <p className="text-muted-foreground">{asn.asn_number}</p>
+              </div>
+              <Badge variant="secondary" className="ml-auto">
+                {blockedSerials} blocked serials
+              </Badge>
             </div>
-            <Badge variant="secondary" className="ml-auto">
-              {blockedSerials} blocked serials
-            </Badge>
-          </div>
-        </DialogHeader>
-        
-        <div className="flex-1 overflow-hidden">
-          <ASNHierarchyView
-            asn={asn}
-            onAssignToNode={handleAssignToNode}
-          />
-        </div>
-      </DialogContent>
-    </Dialog>
+          </DialogHeader>
+          
+          <Tabs defaultValue="hierarchy" className="flex-1 overflow-hidden">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="hierarchy">ASN Hierarchy View</TabsTrigger>
+              <TabsTrigger value="grid">Serial Grid View</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="hierarchy" className="mt-6 flex-1 overflow-hidden">
+              <ASNHierarchyView
+                asn={asn}
+                onAssignToNode={handleAssignToNode}
+              />
+            </TabsContent>
+
+            <TabsContent value="grid" className="mt-6 flex-1 overflow-hidden">
+              <SerialGridView
+                asn={asn}
+                onClose={onClose}
+                showBackButton={false}
+              />
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
+
+      {/* Assign Serials Popup */}
+      {showAssignPopup && (
+        <AssignSerialsPopup
+          asn={asn}
+          partNumbers={showAssignPopup.partNumbers}
+          assignmentContext={showAssignPopup.assignmentContext}
+          open={showAssignPopup.show}
+          onClose={handleCloseAssignPopup}
+          onAssign={handleAssignComplete}
+        />
+      )}
+    </>
   );
 };
