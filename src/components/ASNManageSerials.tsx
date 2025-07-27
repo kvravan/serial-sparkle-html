@@ -30,16 +30,29 @@ export const ASNManageSerials = ({ asn, open, onClose }: ASNManageSerialsProps) 
       name: string;
     };
   }>({ show: false });
+  const [serialsByPartNumber, setSerialsByPartNumber] = useState<Record<string, any[]>>({});
 
   useEffect(() => {
     if (open && asn) {
       loadBlockedSerials();
+      loadSerialData();
     }
   }, [open, asn]);
 
   const loadBlockedSerials = async () => {
     const serials = await getSerialsByASN(asn.id);
     setBlockedSerials(serials.filter(s => s.status === 'blocked').length);
+  };
+
+  const loadSerialData = async () => {
+    const serials = await getSerialsByASN(asn.id);
+    const grouped = serials.reduce((acc, serial) => {
+      const key = serial.part_number_id;
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(serial);
+      return acc;
+    }, {} as Record<string, any[]>);
+    setSerialsByPartNumber(grouped);
   };
 
   const handleAssignToNode = (partNumbers: string[], context: { type: 'item' | 'lot' | 'package'; id: string; name: string }) => {
@@ -68,6 +81,42 @@ export const ASNManageSerials = ({ asn, open, onClose }: ASNManageSerialsProps) 
   // Get product information for part numbers
   const getProductForPartNumber = (partNumber: string): Product | undefined => {
     return store?.products.find(p => p.buyer_part_number === partNumber);
+  };
+
+  // Get serials for a specific part number
+  const getSerialsForPartNumber = (partNumber: string) => {
+    const product = getProductForPartNumber(partNumber);
+    if (!product) return [];
+    return serialsByPartNumber[product.id] || [];
+  };
+
+  // Generate package structure based on ASN items
+  const generatePackageStructure = () => {
+    const containers = [];
+    let containerIndex = 1;
+    
+    for (const item of asn.items) {
+      const product = getProductForPartNumber(item.buyer_part_number);
+      if (!product) continue;
+      
+      const itemSerials = getSerialsForPartNumber(item.buyer_part_number);
+      const blockedSerials = itemSerials.filter(s => s.status === 'blocked');
+      
+      // Create container for each item
+      const container = {
+        id: `container-${containerIndex}`,
+        name: `Master Carton MC-${containerIndex.toString().padStart(3, '0')}`,
+        item: item,
+        product: product,
+        serials: blockedSerials.slice(0, 5), // Show first 5 serials
+        totalSerials: blockedSerials.length
+      };
+      
+      containers.push(container);
+      containerIndex++;
+    }
+    
+    return containers;
   };
 
   if (showSerialGrid.show) {
@@ -154,92 +203,80 @@ export const ASNManageSerials = ({ asn, open, onClose }: ASNManageSerialsProps) 
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {/* Example nested package structure */}
-                  <div className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Box className="h-4 w-4" />
-                        <span className="font-medium">Master Carton MC-001</span>
-                        <Badge variant="outline">Container</Badge>
-                      </div>
-                      <Button variant="outline" size="sm">Assign Serials</Button>
-                    </div>
-                    
-                    <div className="ml-6 space-y-2 border-l-2 border-dashed border-muted-foreground/20 pl-4">
+                  {generatePackageStructure().map((container) => (
+                    <div key={container.id} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <Package className="h-4 w-4" />
-                          <span>Inner Box IB-001</span>
-                          <Badge variant="secondary">CPU-001-X7</Badge>
+                          <Box className="h-4 w-4" />
+                          <span className="font-medium">{container.name}</span>
+                          <Badge variant="outline">Container</Badge>
                         </div>
-                        <Button variant="outline" size="sm">Assign Serials</Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleAssignToNode([container.product.buyer_part_number], {
+                            type: 'package',
+                            id: container.id,
+                            name: container.name
+                          })}
+                        >
+                          Assign Serials
+                        </Button>
                       </div>
                       
-                      <div className="ml-6 space-y-1 border-l-2 border-dashed border-muted-foreground/20 pl-4">
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-001 (Serial: CPU001X7001)</span>
+                      <div className="ml-6 space-y-2 border-l-2 border-dashed border-muted-foreground/20 pl-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <Package className="h-4 w-4" />
+                            <span>Inner Box IB-{container.id.split('-')[1].padStart(3, '0')}</span>
+                            <Badge variant="secondary">{container.product.buyer_part_number}</Badge>
+                          </div>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleAssignToNode([container.product.buyer_part_number], {
+                              type: 'item',
+                              id: container.item.id,
+                              name: container.product.buyer_part_number
+                            })}
+                          >
+                            Assign Serials
+                          </Button>
                         </div>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-002 (Serial: CPU001X7002)</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-003 (Serial: CPU001X7003)</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Package className="h-4 w-4" />
-                          <span>Inner Box IB-002</span>
-                          <Badge variant="secondary">MEM-002-DDR5</Badge>
-                        </div>
-                        <Button variant="outline" size="sm">Assign Serials</Button>
-                      </div>
-                      
-                      <div className="ml-6 space-y-1 border-l-2 border-dashed border-muted-foreground/20 pl-4">
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-004 (Serial: MEM002DDR5001)</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-005 (Serial: MEM002DDR5002)</span>
-                        </div>
+                        
+                        {container.serials.length > 0 ? (
+                          <div className="ml-6 space-y-1 border-l-2 border-dashed border-muted-foreground/20 pl-4">
+                            {container.serials.map((serial, index) => (
+                              <div key={serial.id} className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                <span>• Unit U-{(index + 1).toString().padStart(3, '0')} (Serial: {serial.serial_number})</span>
+                              </div>
+                            ))}
+                            {container.totalSerials > container.serials.length && (
+                              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                <span>• ... and {container.totalSerials - container.serials.length} more</span>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="ml-6 space-y-1 border-l-2 border-dashed border-muted-foreground/20 pl-4">
+                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                              <span>• No serials assigned yet</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
-
-                  <div className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Box className="h-4 w-4" />
-                        <span className="font-medium">Master Carton MC-002</span>
-                        <Badge variant="outline">Container</Badge>
-                      </div>
-                      <Button variant="outline" size="sm">Assign Serials</Button>
+                  ))}
+                  
+                  {generatePackageStructure().length === 0 && (
+                    <div className="text-center py-8">
+                      <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                      <h3 className="text-lg font-medium mb-2">No items in this ASN</h3>
+                      <p className="text-muted-foreground">
+                        This ASN doesn't have any items to display.
+                      </p>
                     </div>
-                    
-                    <div className="ml-6 space-y-2 border-l-2 border-dashed border-muted-foreground/20 pl-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Package className="h-4 w-4" />
-                          <span>Inner Box IB-003</span>
-                          <Badge variant="secondary">SSD-003-NVMe</Badge>
-                        </div>
-                        <Button variant="outline" size="sm">Assign Serials</Button>
-                      </div>
-                      
-                      <div className="ml-6 space-y-1 border-l-2 border-dashed border-muted-foreground/20 pl-4">
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-006 (Serial: SSD003NVME001)</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-007 (Serial: SSD003NVME002)</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <span>• Unit U-008 (Serial: SSD003NVME003)</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

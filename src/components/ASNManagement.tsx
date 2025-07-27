@@ -6,71 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus, FileText, Eye, Truck, Package } from "lucide-react";
 import { ASN } from "@/types";
 import { ASNDetail } from "./ASNDetail";
-
-// Mock ASN data
-const mockASNs: ASN[] = [
-  {
-    id: '1',
-    supplier_id: 'sup1',
-    buyer_id: 'buy1',
-    asn_number: 'ASN-2024-001',
-    status: 'draft',
-    ship_date: new Date('2024-02-15'),
-    delivery_date: new Date('2024-02-20'),
-    created_date: new Date('2024-01-25'),
-    updated_date: new Date('2024-01-26'),
-    items: [
-      {
-        id: '1',
-        asn_id: '1',
-        part_number_id: '1',
-        buyer_part_number: 'CPU-001-X7',
-        ship_quantity: 50,
-        lots: [
-          {
-            id: '1',
-            item_id: '1',
-            lot_number: 'LOT-2024-CPU-001',
-            quantity: 50
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: '2',
-    supplier_id: 'sup1',
-    buyer_id: 'buy1',
-    asn_number: 'ASN-2024-002',
-    status: 'submitted',
-    ship_date: new Date('2024-02-10'),
-    delivery_date: new Date('2024-02-12'),
-    created_date: new Date('2024-01-20'),
-    updated_date: new Date('2024-01-22'),
-    items: [
-      {
-        id: '2',
-        asn_id: '2',
-        part_number_id: '2',
-        buyer_part_number: 'MEM-002-DDR5',
-        ship_quantity: 100,
-        lots: [
-          {
-            id: '2',
-            item_id: '2',
-            lot_number: 'LOT-2024-MEM-001',
-            quantity: 100
-          }
-        ]
-      }
-    ]
-  }
-];
+import { useSerialStore } from "@/hooks/useSerialStore";
 
 export const ASNManagement = () => {
-  const [asns, setAsns] = useState(mockASNs);
+  const { store, loading } = useSerialStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedASN, setSelectedASN] = useState<ASN | null>(null);
+
+  const asns = store?.asns || [];
 
   const filteredASNs = asns.filter(asn =>
     asn.asn_number.toLowerCase().includes(searchTerm.toLowerCase()) ||

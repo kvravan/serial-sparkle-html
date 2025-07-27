@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Search, Package, Plus } from "lucide-react";
+import { Search, ArrowLeft, Package, CheckCircle } from "lucide-react";
 import { ASN, SerialInventory } from "@/types";
+import { useSerialStore } from "@/hooks/useSerialStore";
 import { StatusBadge } from "./StatusBadge";
 
 interface SerialAssignmentProps {
@@ -14,54 +14,31 @@ interface SerialAssignmentProps {
   onClose: () => void;
 }
 
-// Mock data for available serials
-const mockAvailableSerials: SerialInventory[] = [
-  {
-    id: '4',
-    supplier_id: 'sup1',
-    buyer_id: 'buy1',
-    part_number_id: '1',
-    serial_number: 'CPU001X7004',
-    status: 'unassigned',
-    created_date: new Date('2024-01-18'),
-    updated_date: new Date('2024-01-18'),
-    created_by: 'admin',
-    updated_by: 'admin'
-  },
-  {
-    id: '5',
-    supplier_id: 'sup1',
-    buyer_id: 'buy1',
-    part_number_id: '1',
-    serial_number: 'CPU001X7005',
-    status: 'unassigned',
-    created_date: new Date('2024-01-19'),
-    updated_date: new Date('2024-01-19'),
-    created_by: 'admin',
-    updated_by: 'admin'
-  }
-];
-
-const mockBlockedSerials: SerialInventory[] = [
-  {
-    id: '3',
-    supplier_id: 'sup1',
-    buyer_id: 'buy1',
-    part_number_id: '1',
-    serial_number: 'CPU001X7003',
-    status: 'blocked',
-    created_date: new Date('2024-01-17'),
-    updated_date: new Date('2024-01-22'),
-    created_by: 'admin',
-    updated_by: 'admin'
-  }
-];
-
 export const SerialAssignment = ({ asn, onClose }: SerialAssignmentProps) => {
-  const [availableSerials, setAvailableSerials] = useState(mockAvailableSerials);
-  const [blockedSerials, setBlockedSerials] = useState(mockBlockedSerials);
+  const { store, getSerialsByStatus, updateSerialStatus } = useSerialStore();
+  const [availableSerials, setAvailableSerials] = useState<SerialInventory[]>([]);
+  const [blockedSerials, setBlockedSerials] = useState<SerialInventory[]>([]);
   const [selectedSerials, setSelectedSerials] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadSerialData();
+  }, []);
+
+  const loadSerialData = async () => {
+    try {
+      const unassignedSerials = await getSerialsByStatus('unassigned');
+      const blockedSerials = await getSerialsByStatus('blocked');
+      
+      setAvailableSerials(unassignedSerials);
+      setBlockedSerials(blockedSerials);
+    } catch (error) {
+      console.error('Failed to load serial data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredAvailableSerials = availableSerials.filter(serial =>
     serial.serial_number.toLowerCase().includes(searchTerm.toLowerCase())
@@ -79,22 +56,19 @@ export const SerialAssignment = ({ asn, onClose }: SerialAssignmentProps) => {
     }
   };
 
-  const handleAssignSerials = () => {
-    // Move selected serials from available to blocked
-    const serialsToMove = availableSerials.filter(serial => 
-      selectedSerials.includes(serial.id)
-    );
-    
-    const updatedSerials = serialsToMove.map(serial => ({
-      ...serial,
-      status: 'blocked' as const
-    }));
-
-    setBlockedSerials([...blockedSerials, ...updatedSerials]);
-    setAvailableSerials(availableSerials.filter(serial => 
-      !selectedSerials.includes(serial.id)
-    ));
-    setSelectedSerials([]);
+  const handleAssignSerials = async () => {
+    try {
+      // Update serial status to blocked and assign to ASN
+      for (const serialId of selectedSerials) {
+        await updateSerialStatus(serialId, 'blocked', asn.id);
+      }
+      
+      // Reload data to reflect changes
+      await loadSerialData();
+      setSelectedSerials([]);
+    } catch (error) {
+      console.error('Failed to assign serials:', error);
+    }
   };
 
   const SerialCard = ({ serial, selectable = false }: { 
@@ -165,62 +139,25 @@ export const SerialAssignment = ({ asn, onClose }: SerialAssignmentProps) => {
             </Button>
           )}
           <Button variant="outline">
-            <Plus className="h-4 w-4 mr-2" />
+            <Package className="h-4 w-4 mr-2" />
             Import Serials
           </Button>
         </div>
       </div>
 
-      <Tabs defaultValue="blocked" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="blocked">
-            Blocked Serials
-            <Badge variant="outline" className="ml-2">
-              {filteredBlockedSerials.length}
-            </Badge>
-          </TabsTrigger>
-          <TabsTrigger value="inventory">
-            Inventory Serials
-            <Badge variant="outline" className="ml-2">
-              {filteredAvailableSerials.length}
-            </Badge>
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="blocked" className="space-y-4">
+      {loading ? (
+        <div className="text-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+          <p className="text-muted-foreground mt-2">Loading serials...</p>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {/* Available Serials Section */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Package className="h-5 w-5" />
-                <span>Serials Blocked for this ASN</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {filteredBlockedSerials.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredBlockedSerials.map((serial) => (
-                    <SerialCard key={serial.id} serial={serial} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No blocked serials</h3>
-                  <p className="text-muted-foreground">
-                    Assign serials from inventory to block them for this ASN.
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="inventory" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Package className="h-5 w-5" />
-                <span>Available Inventory Serials</span>
+                <span>Available Serials ({filteredAvailableSerials.length})</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -239,24 +176,46 @@ export const SerialAssignment = ({ asn, onClose }: SerialAssignmentProps) => {
                   <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-medium mb-2">No available serials</h3>
                   <p className="text-muted-foreground">
-                    All serials for this part number are currently assigned or blocked.
+                    All serials are currently assigned or blocked.
                   </p>
                 </div>
               )}
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+
+          {/* Blocked Serials Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <CheckCircle className="h-5 w-5" />
+                <span>Blocked Serials ({filteredBlockedSerials.length})</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {filteredBlockedSerials.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredBlockedSerials.map((serial) => (
+                    <SerialCard key={serial.id} serial={serial} />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <CheckCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-medium mb-2">No blocked serials</h3>
+                  <p className="text-muted-foreground">
+                    Assign serials from available inventory to block them for this ASN.
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <div className="flex justify-end space-x-3 pt-6 border-t">
         <Button variant="outline" onClick={onClose}>
           Close
         </Button>
-        {selectedSerials.length > 0 && (
-          <Button onClick={handleAssignSerials}>
-            Assign Selected Serials
-          </Button>
-        )}
       </div>
     </div>
   );

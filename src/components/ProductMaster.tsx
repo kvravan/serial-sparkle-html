@@ -9,52 +9,17 @@ import { ProductDetail } from "./ProductDetail";
 import { AddSerialsForm } from "./AddSerialsForm";
 import { useSerialStore } from "@/hooks/useSerialStore";
 
-// Mock data
-const mockProducts: Product[] = [
-  {
-    id: '1',
-    buyer_identifier: 'ACME_CORP',
-    supplier_identifier: 'TECH_SUPPLY_001',
-    buyer_part_number: 'CPU-001-X7',
-    description: 'High-performance processor unit with enhanced cooling',
-    price: 299.99,
-    dimensions: '40mm x 40mm x 5mm',
-    created_date: new Date('2024-01-15'),
-    updated_date: new Date('2024-01-20')
-  },
-  {
-    id: '2',
-    buyer_identifier: 'ACME_CORP',
-    supplier_identifier: 'TECH_SUPPLY_001', 
-    buyer_part_number: 'MEM-002-DDR5',
-    description: 'DDR5 Memory Module 32GB',
-    price: 189.99,
-    dimensions: '133mm x 30mm x 5mm',
-    created_date: new Date('2024-01-10'),
-    updated_date: new Date('2024-01-18')
-  },
-  {
-    id: '3',
-    buyer_identifier: 'BETA_SYSTEMS',
-    supplier_identifier: 'COMPONENT_PLUS',
-    buyer_part_number: 'SSD-003-NVMe',
-    description: 'NVMe SSD 1TB High Speed Storage',
-    price: 149.99,
-    dimensions: '80mm x 22mm x 2.38mm',
-    created_date: new Date('2024-01-12'),
-    updated_date: new Date('2024-01-22')
-  }
-];
-
 interface ProductMasterProps {
   onProductSelect?: (product: Product) => void;
 }
 
 export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
-  const [products, setProducts] = useState(mockProducts);
+  const { store, loading } = useSerialStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showAddSerials, setShowAddSerials] = useState<Product | null>(null);
+
+  const products = store?.products || [];
 
   const filteredProducts = products.filter(product =>
     product.buyer_part_number.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -205,6 +205,443 @@ class SerialStoreManager {
         updated_date: new Date('2024-01-19'),
         created_by: 'admin',
         updated_by: 'admin'
+      },
+      {
+        id: '6',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '2',
+        serial_number: 'MEM002DDR5002',
+        status: 'blocked',
+        asn_id: '1',
+        created_date: new Date('2024-01-20'),
+        updated_date: new Date('2024-01-25'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '7',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '3',
+        serial_number: 'SSD003NVME001',
+        status: 'unassigned',
+        created_date: new Date('2024-01-21'),
+        updated_date: new Date('2024-01-21'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '8',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '3',
+        serial_number: 'SSD003NVME002',
+        status: 'assigned',
+        asn_id: '1',
+        created_date: new Date('2024-01-22'),
+        updated_date: new Date('2024-01-27'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '9',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '4',
+        serial_number: 'GPU004RTX001',
+        status: 'unassigned',
+        created_date: new Date('2024-01-23'),
+        updated_date: new Date('2024-01-23'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '10',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '4',
+        serial_number: 'GPU004RTX002',
+        status: 'blocked',
+        asn_id: '2',
+        created_date: new Date('2024-01-24'),
+        updated_date: new Date('2024-01-29'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '11',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '5',
+        serial_number: 'MB005Z690001',
+        status: 'unassigned',
+        created_date: new Date('2024-01-25'),
+        updated_date: new Date('2024-01-25'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '12',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '5',
+        serial_number: 'MB005Z690002',
+        status: 'assigned',
+        asn_id: '2',
+        created_date: new Date('2024-01-26'),
+        updated_date: new Date('2024-01-31'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '13',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '6',
+        serial_number: 'PSU006850W001',
+        status: 'unassigned',
+        created_date: new Date('2024-01-27'),
+        updated_date: new Date('2024-01-27'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '14',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '6',
+        serial_number: 'PSU006850W002',
+        status: 'blocked',
+        asn_id: '3',
+        created_date: new Date('2024-01-28'),
+        updated_date: new Date('2024-02-02'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '15',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '7',
+        serial_number: 'CASE007ATX001',
+        status: 'unassigned',
+        created_date: new Date('2024-01-29'),
+        updated_date: new Date('2024-01-29'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '16',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '7',
+        serial_number: 'CASE007ATX002',
+        status: 'assigned',
+        asn_id: '3',
+        created_date: new Date('2024-01-30'),
+        updated_date: new Date('2024-02-04'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '17',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '8',
+        serial_number: 'COOL008AIO001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-01'),
+        updated_date: new Date('2024-02-01'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '18',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '8',
+        serial_number: 'COOL008AIO002',
+        status: 'blocked',
+        asn_id: '1',
+        created_date: new Date('2024-02-02'),
+        updated_date: new Date('2024-02-07'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '19',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '9',
+        serial_number: 'FAN009120MM001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-03'),
+        updated_date: new Date('2024-02-03'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '20',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '9',
+        serial_number: 'FAN009120MM002',
+        status: 'assigned',
+        asn_id: '2',
+        created_date: new Date('2024-02-04'),
+        updated_date: new Date('2024-02-09'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '21',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '10',
+        serial_number: 'MON01027IN001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-06'),
+        updated_date: new Date('2024-02-06'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '22',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '10',
+        serial_number: 'MON01027IN002',
+        status: 'blocked',
+        asn_id: '4',
+        created_date: new Date('2024-02-07'),
+        updated_date: new Date('2024-02-12'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '23',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '11',
+        serial_number: 'KB011MECH001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-08'),
+        updated_date: new Date('2024-02-08'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '24',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '11',
+        serial_number: 'KB011MECH002',
+        status: 'assigned',
+        asn_id: '4',
+        created_date: new Date('2024-02-09'),
+        updated_date: new Date('2024-02-14'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '25',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '12',
+        serial_number: 'MOUSE012WIRELESS001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-10'),
+        updated_date: new Date('2024-02-10'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '26',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '12',
+        serial_number: 'MOUSE012WIRELESS002',
+        status: 'blocked',
+        asn_id: '4',
+        created_date: new Date('2024-02-11'),
+        updated_date: new Date('2024-02-16'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '27',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '13',
+        serial_number: 'NET013WIFI6001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-12'),
+        updated_date: new Date('2024-02-12'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '28',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '13',
+        serial_number: 'NET013WIFI6002',
+        status: 'assigned',
+        asn_id: '5',
+        created_date: new Date('2024-02-13'),
+        updated_date: new Date('2024-02-18'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '29',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '14',
+        serial_number: 'CABLE014USBC001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-14'),
+        updated_date: new Date('2024-02-14'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '30',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '14',
+        serial_number: 'CABLE014USBC002',
+        status: 'blocked',
+        asn_id: '5',
+        created_date: new Date('2024-02-15'),
+        updated_date: new Date('2024-02-20'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '31',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '15',
+        serial_number: 'ADAPTER015POWER001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-16'),
+        updated_date: new Date('2024-02-16'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '32',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        part_number_id: '15',
+        serial_number: 'ADAPTER015POWER002',
+        status: 'assigned',
+        asn_id: '5',
+        created_date: new Date('2024-02-17'),
+        updated_date: new Date('2024-02-22'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '33',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '16',
+        serial_number: 'SPEAKER0162.1001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-18'),
+        updated_date: new Date('2024-02-18'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '34',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '16',
+        serial_number: 'SPEAKER0162.1002',
+        status: 'blocked',
+        asn_id: '6',
+        created_date: new Date('2024-02-19'),
+        updated_date: new Date('2024-02-24'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '35',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '17',
+        serial_number: 'MIC017CONDENSER001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-20'),
+        updated_date: new Date('2024-02-20'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '36',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '17',
+        serial_number: 'MIC017CONDENSER002',
+        status: 'assigned',
+        asn_id: '6',
+        created_date: new Date('2024-02-21'),
+        updated_date: new Date('2024-02-26'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '37',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '18',
+        serial_number: 'WEBCAM0184K001',
+        status: 'unassigned',
+        created_date: new Date('2024-02-22'),
+        updated_date: new Date('2024-02-22'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '38',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        part_number_id: '18',
+        serial_number: 'WEBCAM0184K002',
+        status: 'blocked',
+        asn_id: '6',
+        created_date: new Date('2024-02-23'),
+        updated_date: new Date('2024-02-28'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '39',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '10',
+        serial_number: 'MON01027IN003',
+        status: 'unassigned',
+        created_date: new Date('2024-02-24'),
+        updated_date: new Date('2024-02-24'),
+        created_by: 'admin',
+        updated_by: 'admin'
+      },
+      {
+        id: '40',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        part_number_id: '11',
+        serial_number: 'KB011MECH003',
+        status: 'unassigned',
+        created_date: new Date('2024-02-25'),
+        updated_date: new Date('2024-02-25'),
+        created_by: 'admin',
+        updated_by: 'admin'
       }
     ];
   }
@@ -277,6 +714,21 @@ class SerialStoreManager {
                 quantity: 8
               }
             ]
+          },
+          {
+            id: 'item8',
+            asn_id: '1',
+            part_number_id: '8',
+            buyer_part_number: 'COOL-008-AIO',
+            ship_quantity: 5,
+            lots: [
+              {
+                id: 'lot8',
+                item_id: 'item8',
+                lot_number: 'LOT008',
+                quantity: 5
+              }
+            ]
           }
         ]
       },
@@ -289,7 +741,303 @@ class SerialStoreManager {
         ship_date: new Date('2024-02-20'),
         created_date: new Date('2024-01-18'),
         updated_date: new Date('2024-01-25'),
-        items: []
+        items: [
+          {
+            id: 'item4',
+            asn_id: '2',
+            part_number_id: '4',
+            buyer_part_number: 'GPU-004-RTX',
+            ship_quantity: 15,
+            lots: [
+              {
+                id: 'lot6',
+                item_id: 'item4',
+                lot_number: 'LOT006',
+                quantity: 10
+              },
+              {
+                id: 'lot7',
+                item_id: 'item4',
+                lot_number: 'LOT007',
+                quantity: 5
+              }
+            ]
+          },
+          {
+            id: 'item5',
+            asn_id: '2',
+            part_number_id: '5',
+            buyer_part_number: 'MB-005-Z690',
+            ship_quantity: 12,
+            lots: [
+              {
+                id: 'lot9',
+                item_id: 'item5',
+                lot_number: 'LOT009',
+                quantity: 12
+              }
+            ]
+          },
+          {
+            id: 'item9',
+            asn_id: '2',
+            part_number_id: '9',
+            buyer_part_number: 'FAN-009-120MM',
+            ship_quantity: 25,
+            lots: [
+              {
+                id: 'lot10',
+                item_id: 'item9',
+                lot_number: 'LOT010',
+                quantity: 15
+              },
+              {
+                id: 'lot11',
+                item_id: 'item9',
+                lot_number: 'LOT011',
+                quantity: 10
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '3',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        asn_number: 'ASN-2024-003',
+        status: 'received',
+        ship_date: new Date('2024-02-10'),
+        delivery_date: new Date('2024-02-12'),
+        created_date: new Date('2024-01-20'),
+        updated_date: new Date('2024-02-12'),
+        items: [
+          {
+            id: 'item6',
+            asn_id: '3',
+            part_number_id: '6',
+            buyer_part_number: 'PSU-006-850W',
+            ship_quantity: 8,
+            lots: [
+              {
+                id: 'lot12',
+                item_id: 'item6',
+                lot_number: 'LOT012',
+                quantity: 8
+              }
+            ]
+          },
+          {
+            id: 'item7',
+            asn_id: '3',
+            part_number_id: '7',
+            buyer_part_number: 'CASE-007-ATX',
+            ship_quantity: 6,
+            lots: [
+              {
+                id: 'lot13',
+                item_id: 'item7',
+                lot_number: 'LOT013',
+                quantity: 6
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '4',
+        supplier_id: 'sup1',
+        buyer_id: 'buy1',
+        asn_number: 'ASN-2024-004',
+        status: 'draft',
+        ship_date: new Date('2024-03-01'),
+        created_date: new Date('2024-01-25'),
+        updated_date: new Date('2024-01-30'),
+        items: [
+          {
+            id: 'item10',
+            asn_id: '4',
+            part_number_id: '10',
+            buyer_part_number: 'MON-010-27IN',
+            ship_quantity: 30,
+            lots: [
+              {
+                id: 'lot14',
+                item_id: 'item10',
+                lot_number: 'LOT014',
+                quantity: 20
+              },
+              {
+                id: 'lot15',
+                item_id: 'item10',
+                lot_number: 'LOT015',
+                quantity: 10
+              }
+            ]
+          },
+          {
+            id: 'item11',
+            asn_id: '4',
+            part_number_id: '11',
+            buyer_part_number: 'KB-011-MECH',
+            ship_quantity: 50,
+            lots: [
+              {
+                id: 'lot16',
+                item_id: 'item11',
+                lot_number: 'LOT016',
+                quantity: 30
+              },
+              {
+                id: 'lot17',
+                item_id: 'item11',
+                lot_number: 'LOT017',
+                quantity: 20
+              }
+            ]
+          },
+          {
+            id: 'item12',
+            asn_id: '4',
+            part_number_id: '12',
+            buyer_part_number: 'MOUSE-012-WIRELESS',
+            ship_quantity: 40,
+            lots: [
+              {
+                id: 'lot18',
+                item_id: 'item12',
+                lot_number: 'LOT018',
+                quantity: 40
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '5',
+        supplier_id: 'sup2',
+        buyer_id: 'buy2',
+        asn_number: 'ASN-2024-005',
+        status: 'submitted',
+        ship_date: new Date('2024-03-05'),
+        created_date: new Date('2024-01-28'),
+        updated_date: new Date('2024-02-02'),
+        items: [
+          {
+            id: 'item13',
+            asn_id: '5',
+            part_number_id: '13',
+            buyer_part_number: 'NET-013-WIFI6',
+            ship_quantity: 18,
+            lots: [
+              {
+                id: 'lot19',
+                item_id: 'item13',
+                lot_number: 'LOT019',
+                quantity: 18
+              }
+            ]
+          },
+          {
+            id: 'item14',
+            asn_id: '5',
+            part_number_id: '14',
+            buyer_part_number: 'CABLE-014-USB-C',
+            ship_quantity: 100,
+            lots: [
+              {
+                id: 'lot20',
+                item_id: 'item14',
+                lot_number: 'LOT020',
+                quantity: 60
+              },
+              {
+                id: 'lot21',
+                item_id: 'item14',
+                lot_number: 'LOT021',
+                quantity: 40
+              }
+            ]
+          },
+          {
+            id: 'item15',
+            asn_id: '5',
+            part_number_id: '15',
+            buyer_part_number: 'ADAPTER-015-POWER',
+            ship_quantity: 25,
+            lots: [
+              {
+                id: 'lot22',
+                item_id: 'item15',
+                lot_number: 'LOT022',
+                quantity: 25
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '6',
+        supplier_id: 'sup3',
+        buyer_id: 'buy3',
+        asn_number: 'ASN-2024-006',
+        status: 'draft',
+        ship_date: new Date('2024-03-10'),
+        created_date: new Date('2024-02-01'),
+        updated_date: new Date('2024-02-05'),
+        items: [
+          {
+            id: 'item16',
+            asn_id: '6',
+            part_number_id: '16',
+            buyer_part_number: 'SPEAKER-016-2.1',
+            ship_quantity: 12,
+            lots: [
+              {
+                id: 'lot23',
+                item_id: 'item16',
+                lot_number: 'LOT023',
+                quantity: 12
+              }
+            ]
+          },
+          {
+            id: 'item17',
+            asn_id: '6',
+            part_number_id: '17',
+            buyer_part_number: 'MIC-017-CONDENSER',
+            ship_quantity: 8,
+            lots: [
+              {
+                id: 'lot24',
+                item_id: 'item17',
+                lot_number: 'LOT024',
+                quantity: 8
+              }
+            ]
+          },
+          {
+            id: 'item18',
+            asn_id: '6',
+            part_number_id: '18',
+            buyer_part_number: 'WEBCAM-018-4K',
+            ship_quantity: 15,
+            lots: [
+              {
+                id: 'lot25',
+                item_id: 'item18',
+                lot_number: 'LOT025',
+                quantity: 10
+              },
+              {
+                id: 'lot26',
+                item_id: 'item18',
+                lot_number: 'LOT026',
+                quantity: 5
+              }
+            ]
+          }
+        ]
       }
     ];
   }
@@ -328,6 +1076,171 @@ class SerialStoreManager {
         dimensions: '80mm x 22mm x 2.38mm',
         created_date: new Date('2024-01-12'),
         updated_date: new Date('2024-01-22')
+      },
+      {
+        id: '4',
+        buyer_identifier: 'GAMING_TECH',
+        supplier_identifier: 'GRAPHICS_PRO',
+        buyer_part_number: 'GPU-004-RTX',
+        description: 'RTX 4070 Graphics Card 12GB GDDR6X',
+        price: 599.99,
+        dimensions: '285mm x 126mm x 50mm',
+        created_date: new Date('2024-01-14'),
+        updated_date: new Date('2024-01-24')
+      },
+      {
+        id: '5',
+        buyer_identifier: 'GAMING_TECH',
+        supplier_identifier: 'GRAPHICS_PRO',
+        buyer_part_number: 'MB-005-Z690',
+        description: 'Intel Z690 Motherboard ATX',
+        price: 249.99,
+        dimensions: '305mm x 244mm x 6mm',
+        created_date: new Date('2024-01-16'),
+        updated_date: new Date('2024-01-26')
+      },
+      {
+        id: '6',
+        buyer_identifier: 'POWER_SOLUTIONS',
+        supplier_identifier: 'ENERGY_TECH',
+        buyer_part_number: 'PSU-006-850W',
+        description: '850W Modular Power Supply 80+ Gold',
+        price: 129.99,
+        dimensions: '150mm x 86mm x 140mm',
+        created_date: new Date('2024-01-18'),
+        updated_date: new Date('2024-01-28')
+      },
+      {
+        id: '7',
+        buyer_identifier: 'POWER_SOLUTIONS',
+        supplier_identifier: 'ENERGY_TECH',
+        buyer_part_number: 'CASE-007-ATX',
+        description: 'ATX Mid Tower Case with Tempered Glass',
+        price: 89.99,
+        dimensions: '450mm x 200mm x 450mm',
+        created_date: new Date('2024-01-20'),
+        updated_date: new Date('2024-01-30')
+      },
+      {
+        id: '8',
+        buyer_identifier: 'ACME_CORP',
+        supplier_identifier: 'TECH_SUPPLY_001',
+        buyer_part_number: 'COOL-008-AIO',
+        description: '240mm All-in-One Liquid CPU Cooler',
+        price: 119.99,
+        dimensions: '280mm x 120mm x 27mm',
+        created_date: new Date('2024-01-22'),
+        updated_date: new Date('2024-02-01')
+      },
+      {
+        id: '9',
+        buyer_identifier: 'GAMING_TECH',
+        supplier_identifier: 'GRAPHICS_PRO',
+        buyer_part_number: 'FAN-009-120MM',
+        description: '120mm PWM Case Fan with RGB',
+        price: 24.99,
+        dimensions: '120mm x 120mm x 25mm',
+        created_date: new Date('2024-01-24'),
+        updated_date: new Date('2024-02-03')
+      },
+      {
+        id: '10',
+        buyer_identifier: 'DISPLAY_TECH',
+        supplier_identifier: 'MONITOR_PRO',
+        buyer_part_number: 'MON-010-27IN',
+        description: '27-inch 4K Ultra HD Monitor with HDR',
+        price: 399.99,
+        dimensions: '610mm x 360mm x 50mm',
+        created_date: new Date('2024-01-26'),
+        updated_date: new Date('2024-02-05')
+      },
+      {
+        id: '11',
+        buyer_identifier: 'INPUT_DEVICES',
+        supplier_identifier: 'PERIPHERAL_PLUS',
+        buyer_part_number: 'KB-011-MECH',
+        description: 'Mechanical Gaming Keyboard with RGB Backlight',
+        price: 149.99,
+        dimensions: '440mm x 135mm x 35mm',
+        created_date: new Date('2024-01-28'),
+        updated_date: new Date('2024-02-07')
+      },
+      {
+        id: '12',
+        buyer_identifier: 'INPUT_DEVICES',
+        supplier_identifier: 'PERIPHERAL_PLUS',
+        buyer_part_number: 'MOUSE-012-WIRELESS',
+        description: 'Wireless Gaming Mouse with 25K DPI Sensor',
+        price: 79.99,
+        dimensions: '125mm x 65mm x 40mm',
+        created_date: new Date('2024-01-30'),
+        updated_date: new Date('2024-02-09')
+      },
+      {
+        id: '13',
+        buyer_identifier: 'NETWORK_SOLUTIONS',
+        supplier_identifier: 'CONNECT_TECH',
+        buyer_part_number: 'NET-013-WIFI6',
+        description: 'WiFi 6 PCIe Network Adapter',
+        price: 59.99,
+        dimensions: '120mm x 80mm x 15mm',
+        created_date: new Date('2024-02-01'),
+        updated_date: new Date('2024-02-11')
+      },
+      {
+        id: '14',
+        buyer_identifier: 'CABLE_SYSTEMS',
+        supplier_identifier: 'WIRE_TECH',
+        buyer_part_number: 'CABLE-014-USB-C',
+        description: 'USB-C to USB-C Cable 3.2 Gen 2',
+        price: 19.99,
+        dimensions: '2000mm x 5mm x 5mm',
+        created_date: new Date('2024-02-03'),
+        updated_date: new Date('2024-02-13')
+      },
+      {
+        id: '15',
+        buyer_identifier: 'POWER_SOLUTIONS',
+        supplier_identifier: 'ENERGY_TECH',
+        buyer_part_number: 'ADAPTER-015-POWER',
+        description: 'Universal Power Adapter 100W',
+        price: 34.99,
+        dimensions: '80mm x 40mm x 25mm',
+        created_date: new Date('2024-02-05'),
+        updated_date: new Date('2024-02-15')
+      },
+      {
+        id: '16',
+        buyer_identifier: 'AUDIO_TECH',
+        supplier_identifier: 'SOUND_PRO',
+        buyer_part_number: 'SPEAKER-016-2.1',
+        description: '2.1 Channel Multimedia Speaker System',
+        price: 89.99,
+        dimensions: '120mm x 80mm x 100mm',
+        created_date: new Date('2024-02-07'),
+        updated_date: new Date('2024-02-17')
+      },
+      {
+        id: '17',
+        buyer_identifier: 'AUDIO_TECH',
+        supplier_identifier: 'SOUND_PRO',
+        buyer_part_number: 'MIC-017-CONDENSER',
+        description: 'USB Condenser Microphone with Stand',
+        price: 69.99,
+        dimensions: '200mm x 50mm x 50mm',
+        created_date: new Date('2024-02-09'),
+        updated_date: new Date('2024-02-19')
+      },
+      {
+        id: '18',
+        buyer_identifier: 'CAMERA_TECH',
+        supplier_identifier: 'VIDEO_PRO',
+        buyer_part_number: 'WEBCAM-018-4K',
+        description: '4K Webcam with Auto-Focus and Noise Cancellation',
+        price: 199.99,
+        dimensions: '100mm x 30mm x 30mm',
+        created_date: new Date('2024-02-11'),
+        updated_date: new Date('2024-02-21')
       }
     ];
   }
