@@ -125,7 +125,15 @@ export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
                 <span className="text-xs text-muted-foreground">
                   Updated {product.updated_date.toLocaleDateString()}
                 </span>
-                <Button variant="ghost" size="sm" className="h-8 px-2">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-8 px-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleProductClick(product);
+                  }}
+                >
                   <Eye className="h-3 w-3" />
                 </Button>
               </div>

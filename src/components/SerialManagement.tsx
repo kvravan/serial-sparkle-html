@@ -96,7 +96,7 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
   const handleViewSerial = (serial: SerialInventory, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('View serial clicked:', serial.id, 'current tab:', activeTab, 'viewMode:', viewMode);
+    console.log('View serial clicked:', serial.id, serial.serial_number, 'current tab:', activeTab, 'viewMode:', viewMode);
     setPreviousViewMode(viewMode);
     setSelectedSerial(serial);
   };
