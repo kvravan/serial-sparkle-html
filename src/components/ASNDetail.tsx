@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, FileText, Package, Truck, Settings, Send } from "lucide-react";
 import { ASN } from "@/types";
 import { SerialAssignment } from "./SerialAssignment";
-import { ASNManageSerials } from "./ASNManageSerials";
+import { ASNAssignSerials } from "./ASNAssignSerials";
 import { useSerialStore } from "@/hooks/useSerialStore";
 
 interface ASNDetailProps {
@@ -59,7 +59,7 @@ export const ASNDetail = ({ asn, onClose }: ASNDetailProps) => {
 
   if (showAssignmentPopup) {
     return (
-      <ASNManageSerials
+      <ASNAssignSerials
         asn={asn}
         open={true}
         onClose={() => {
@@ -231,7 +231,7 @@ export const ASNDetail = ({ asn, onClose }: ASNDetailProps) => {
                className="flex items-center space-x-2"
              >
                <Settings className="h-4 w-4" />
-               <span>Manage Serials</span>
+               <span>Assign Serials</span>
              </Button>
             <Button className="flex items-center space-x-2">
               <Send className="h-4 w-4" />

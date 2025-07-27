@@ -21,6 +21,7 @@ interface SerialGridViewProps {
   };
   onClose: () => void;
   contextLaunched?: boolean;
+  showBackButton?: boolean;
 }
 
 export const SerialGridView = ({ 
@@ -28,7 +29,8 @@ export const SerialGridView = ({
   partNumbers, 
   assignmentContext, 
   onClose, 
-  contextLaunched = false 
+  contextLaunched = false,
+  showBackButton = false 
 }: SerialGridViewProps) => {
   const { store, getSerialsByASN, getSerialsByStatus, updateSerialStatus } = useSerialStore();
   const [blockedSerials, setBlockedSerials] = useState<SerialInventory[]>([]);
