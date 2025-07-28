@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Search, Plus, Download, Upload, Grid, List, Eye, Trash2, GitBranch } from "lucide-react";
 import { Product, SerialInventory, SerialStatus } from "@/types";
 import { StatusBadge } from "./StatusBadge";
-import { useSerialStore } from "@/hooks/useSerialStore";
+import { useGlobalState } from "@/hooks/useGlobalState";
 import { AddSerialsForm } from "./AddSerialsForm";
 import { ImportSerialsForm } from "./ImportSerialsForm";
 import { SerialDetail } from "./SerialDetail";
@@ -20,35 +20,21 @@ interface SerialManagementProps {
 }
 
 export const SerialManagement = ({ product, onClose }: SerialManagementProps) => {
-  const [serials, setSerials] = useState<SerialInventory[]>([]);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [showImportForm, setShowImportForm] = useState(false);
-  const [showUploadChildSerialsForm, setShowUploadChildSerialsForm] = useState(false);
-  const [selectedSerial, setSelectedSerial] = useState<SerialInventory | null>(null);
+  const { ui, actions, computed } = useGlobalState();
   const [activeTab, setActiveTab] = useState("overview");
   const [previousViewMode, setPreviousViewMode] = useState<"grid" | "table">("grid");
-  const { getSerialsByPartNumber, store } = useSerialStore();
-
-  useEffect(() => {
-    const loadSerials = async () => {
-      const productSerials = await getSerialsByPartNumber(product.id);
-      setSerials(productSerials);
-    };
-    loadSerials();
-  }, [product.id, getSerialsByPartNumber, store]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<SerialStatus | "all">("all");
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
+  
+  const serials = computed.getSerialsByPartNumber(product.id);
 
   const filteredSerials = serials.filter(serial => {
-    const matchesSearch = serial.serial_number.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "all" || serial.status === statusFilter;
+    const matchesSearch = serial.serial_number.toLowerCase().includes(ui.searchTerms.serials.toLowerCase());
+    const matchesStatus = ui.filters.serialStatus === "all" || serial.status === ui.filters.serialStatus;
     return matchesSearch && matchesStatus;
   });
 
   const handleDeleteSerial = (serialId: string) => {
-    // TODO: Implement delete functionality with serialStore
-    setSerials(serials.filter(s => s.id !== serialId));
+    actions.deleteSerial(serialId);
   };
 
   const statusCounts = {
@@ -58,49 +44,49 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
     unassigned: serials.filter(s => s.status === 'unassigned').length,
   };
 
-  if (showAddForm) {
+  if (ui.modals.addSerial) {
     return (
       <AddSerialsForm
         product={product}
         onClose={() => {
-          setShowAddForm(false);
+          actions.toggleModal('addSerial', false);
           setActiveTab("serials");
         }}
       />
     );
   }
 
-  if (showImportForm) {
+  if (ui.modals.importSerials) {
     return (
       <ImportSerialsForm
         product={product}
         onClose={() => {
-          setShowImportForm(false);
+          actions.toggleModal('importSerials', false);
           setActiveTab("serials");
         }}
       />
     );
   }
 
-  if (showUploadChildSerialsForm) {
+  if (ui.modals.uploadChildSerials) {
     return (
       <UploadChildSerialsForm
         product={product}
         onClose={() => {
-          setShowUploadChildSerialsForm(false);
+          actions.toggleModal('uploadChildSerials', false);
           setActiveTab("serials");
         }}
       />
     );
   }
 
-  if (selectedSerial) {
+  if (ui.selectedSerial) {
     return (
       <SerialDetail
-        serial={selectedSerial}
+        serial={ui.selectedSerial}
         onClose={() => {
           console.log('SerialDetail closed, returning to tab:', activeTab, 'viewMode:', previousViewMode);
-          setSelectedSerial(null);
+          actions.setSelectedSerial(null);
           setViewMode(previousViewMode);
         }}
       />
@@ -112,7 +98,7 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
     e.stopPropagation();
     console.log('View serial clicked:', serial.id, serial.serial_number, 'current tab:', activeTab, 'viewMode:', viewMode);
     setPreviousViewMode(viewMode);
-    setSelectedSerial(serial);
+    actions.setSelectedSerial(serial);
   };
 
   const SerialCard = ({ serial }: { serial: SerialInventory }) => (
@@ -144,12 +130,12 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
               variant="ghost" 
               size="sm" 
               className="h-8 w-8 p-0 hover:bg-primary/10"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Upload Child Serials clicked for serial:', serial.serial_number);
-                setShowUploadChildSerialsForm(true);
-              }}
+               onClick={(e) => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 console.log('Upload Child Serials clicked for serial:', serial.serial_number);
+                 actions.toggleModal('uploadChildSerials', true);
+               }}
             >
               <GitBranch className="h-4 w-4" />
             </Button>
@@ -191,13 +177,13 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search serial numbers..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={ui.searchTerms.serials}
+              onChange={(e) => actions.setSearchTerm('serials', e.target.value)}
               className="pl-10"
             />
           </div>
           
-          <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as SerialStatus | "all")}>
+          <Select value={ui.filters.serialStatus} onValueChange={(value) => actions.setFilter('serialStatus', value as SerialStatus | "all")}>
             <SelectTrigger className="w-40">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
@@ -240,7 +226,7 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
             size="sm"
             onClick={() => {
               console.log('Import clicked');
-              setShowImportForm(true);
+              actions.toggleModal('importSerials', true);
             }}
           >
             <Upload className="h-4 w-4 mr-2" />
@@ -251,7 +237,7 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
              size="sm" 
              onClick={() => {
                console.log('Add Serials clicked');
-               setShowAddForm(true);
+               actions.toggleModal('addSerial', true);
              }}
            >
              <Plus className="h-4 w-4 mr-2" />
@@ -342,12 +328,12 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
                                variant="ghost" 
                                size="sm" 
                                className="h-8 w-8 p-0 hover:bg-primary/10"
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 console.log('Upload Child Serials clicked for serial:', serial.serial_number);
-                                 setShowUploadChildSerialsForm(true);
-                               }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('Upload Child Serials clicked for serial:', serial.serial_number);
+                  actions.toggleModal('uploadChildSerials', true);
+                }}
                              >
                                <GitBranch className="h-4 w-4" />
                              </Button>
@@ -384,7 +370,7 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
                 Try adjusting your search criteria or add new serial numbers.
               </p>
               <Button onClick={() => {
-                setShowAddForm(true);
+                actions.toggleModal('addSerial', true);
                 setActiveTab("serials");
               }}>Add Serial Numbers</Button>
             </div>

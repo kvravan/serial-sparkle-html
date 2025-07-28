@@ -1,24 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, TrendingUp, Package, FileText } from "lucide-react";
-import { useSerialStore } from "@/hooks/useSerialStore";
-import { useEffect, useState } from "react";
+import { useGlobalState } from "@/hooks/useGlobalState";
 
 export const Analytics = () => {
-  const { getSerialCounts, store } = useSerialStore();
-  const [counts, setCounts] = useState({
-    total: 0,
-    unassigned: 0,
-    blocked: 0,
-    assigned: 0,
-  });
-
-  useEffect(() => {
-    const loadCounts = async () => {
-      const serialCounts = await getSerialCounts();
-      setCounts(serialCounts);
-    };
-    loadCounts();
-  }, [getSerialCounts, store]);
+  const { computed, asns, serials } = useGlobalState();
+  const counts = computed.getSerialCounts();
 
   const assignmentRate = counts.total > 0 ? ((counts.assigned / counts.total) * 100).toFixed(1) : 0;
   return (
@@ -50,13 +36,13 @@ export const Analytics = () => {
             <CardTitle className="text-sm font-medium">Active ASNs</CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-             <div className="text-2xl font-bold">{store?.asns.length || 0}</div>
-             <p className="text-xs text-muted-foreground">
-               <TrendingUp className="inline h-3 w-3 mr-1" />
-               Live from database
-             </p>
-           </CardContent>
+           <CardContent>
+              <div className="text-2xl font-bold">{asns.length}</div>
+              <p className="text-xs text-muted-foreground">
+                <TrendingUp className="inline h-3 w-3 mr-1" />
+                Live from database
+              </p>
+            </CardContent>
         </Card>
 
         <Card>
@@ -131,7 +117,7 @@ export const Analytics = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {store?.asns.slice(0, 3).map((asn, index) => (
+              {asns.slice(0, 3).map((asn, index) => (
                 <div key={asn.id} className="flex items-center space-x-4">
                   <div className={`w-2 h-2 rounded-full ${
                     asn.status === 'received' ? 'bg-success' : 
@@ -149,7 +135,7 @@ export const Analytics = () => {
                 </div>
               ))}
               
-              {store?.serials.slice(0, 2).map((serial, index) => (
+              {serials.slice(0, 2).map((serial, index) => (
                 <div key={serial.id} className="flex items-center space-x-4">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
                   <div className="flex-1">
@@ -163,7 +149,7 @@ export const Analytics = () => {
                 </div>
               ))}
               
-              {(!store?.asns.length && !store?.serials.length) && (
+              {(!asns.length && !serials.length) && (
                 <div className="text-center py-4">
                   <p className="text-sm text-muted-foreground">No recent activity</p>
                 </div>

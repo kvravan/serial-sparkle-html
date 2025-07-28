@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,26 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Search, Plus, FileText, Eye, Truck, Package } from "lucide-react";
 import { ASN } from "@/types";
 import { ASNDetail } from "./ASNDetail";
-import { useSerialStore } from "@/hooks/useSerialStore";
+import { useGlobalState } from "@/hooks/useGlobalState";
 
 export const ASNManagement = () => {
-  const { store, loading } = useSerialStore();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedASN, setSelectedASN] = useState<ASN | null>(null);
-
-  const asns = store?.asns || [];
-
-  const filteredASNs = asns.filter(asn =>
-    asn.asn_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    asn.status.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const { ui, actions, computed } = useGlobalState();
+  
+  const filteredASNs = computed.getFilteredASNs();
 
   const handleASNClick = (asn: ASN) => {
-    setSelectedASN(asn);
+    actions.setSelectedASN(asn);
   };
 
   const handleCloseDetail = () => {
-    setSelectedASN(null);
+    actions.setSelectedASN(null);
   };
 
   const getStatusVariant = (status: string) => {
@@ -41,10 +33,10 @@ export const ASNManagement = () => {
     }
   };
 
-  if (selectedASN) {
+  if (ui.selectedASN) {
     return (
       <ASNDetail 
-        asn={selectedASN} 
+        asn={ui.selectedASN} 
         onClose={handleCloseDetail}
       />
     );
@@ -70,8 +62,8 @@ export const ASNManagement = () => {
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search ASNs..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={ui.searchTerms.asns}
+            onChange={(e) => actions.setSearchTerm('asns', e.target.value)}
             className="pl-10"
           />
         </div>

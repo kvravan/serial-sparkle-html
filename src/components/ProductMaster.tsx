@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,74 +7,66 @@ import { Product } from "@/types";
 import { ProductDetail } from "./ProductDetail";
 import { AddSerialsForm } from "./AddSerialsForm";
 import { AddChildPartsForm } from "./AddChildPartsForm";
-import { useSerialStore } from "@/hooks/useSerialStore";
+import { useGlobalState } from "@/hooks/useGlobalState";
 
 interface ProductMasterProps {
   onProductSelect?: (product: Product) => void;
 }
 
 export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
-  const { store, loading } = useSerialStore();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [showAddSerials, setShowAddSerials] = useState<Product | null>(null);
-  const [showAddChildParts, setShowAddChildParts] = useState<Product | null>(null);
-
-  const products = store?.products || [];
-
-  const filteredProducts = products.filter(product =>
-    product.buyer_part_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.buyer_identifier.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const { ui, actions, computed, system } = useGlobalState();
+  
+  const filteredProducts = computed.getFilteredProducts();
 
   const handleProductClick = (product: Product) => {
-    setSelectedProduct(product);
+    actions.setSelectedProduct(product);
     onProductSelect?.(product);
   };
 
   const handleCloseDetail = () => {
-    setSelectedProduct(null);
+    actions.setSelectedProduct(null);
   };
 
   const handleShowAddSerials = (product: Product) => {
-    setShowAddSerials(product);
+    actions.setSelectedProduct(product);
+    actions.toggleModal('addSerial', true);
   };
 
   const handleCloseAddSerials = () => {
-    setShowAddSerials(null);
+    actions.toggleModal('addSerial', false);
   };
 
   const handleShowAddChildParts = (product: Product) => {
-    setShowAddChildParts(product);
+    actions.setSelectedProduct(product);
+    actions.toggleModal('uploadChildSerials', true);
   };
 
   const handleCloseAddChildParts = () => {
-    setShowAddChildParts(null);
+    actions.toggleModal('uploadChildSerials', false);
   };
 
-  if (showAddChildParts) {
+  if (ui.modals.uploadChildSerials && ui.selectedProduct) {
     return (
       <AddChildPartsForm
-        product={showAddChildParts}
+        product={ui.selectedProduct}
         onClose={handleCloseAddChildParts}
       />
     );
   }
 
-  if (showAddSerials) {
+  if (ui.modals.addSerial && ui.selectedProduct) {
     return (
       <AddSerialsForm 
-        product={showAddSerials} 
+        product={ui.selectedProduct} 
         onClose={handleCloseAddSerials}
       />
     );
   }
 
-  if (selectedProduct) {
+  if (ui.selectedProduct) {
     return (
       <ProductDetail 
-        product={selectedProduct} 
+        product={ui.selectedProduct} 
         onClose={handleCloseDetail}
         onAddSerials={handleShowAddSerials}
       />
@@ -108,8 +99,8 @@ export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={ui.searchTerms.products}
+            onChange={(e) => actions.setSearchTerm('products', e.target.value)}
             className="pl-10"
           />
         </div>

@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { ProductMaster } from "@/components/ProductMaster";
 import { ASNManagement } from "@/components/ASNManagement";
 import { Analytics } from "@/components/Analytics";
+import { useGlobalState } from "@/hooks/useGlobalState";
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("products");
+  const { ui, actions } = useGlobalState();
 
   const renderContent = () => {
-    switch (activeTab) {
+    switch (ui.activeTab) {
       case "products":
         return <ProductMaster />;
       case "asn":
@@ -22,7 +22,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <Navigation activeTab={ui.activeTab} onTabChange={actions.setActiveTab} />
       <main className="container mx-auto px-4 py-8">
         {renderContent()}
       </main>
