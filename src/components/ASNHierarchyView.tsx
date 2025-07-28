@@ -256,6 +256,21 @@ export const ASNHierarchyView = ({ asn, onAssignToNode }: ASNHierarchyViewProps)
     const serialCount = getSerialCount(packageData.partNumbers);
     const serialPreview = getSerialPreview(packageData.partNumbers);
 
+    // Calculate progress percentage based on packed vs total
+    const getProgressData = () => {
+      switch (packageData.id) {
+        case 'container1': return { packed: 25, total: 50, percentage: 50 };
+        case 'pallet1': return { packed: 18, total: 30, percentage: 60 };
+        case 'pallet2': return { packed: 7, total: 20, percentage: 35 };
+        case 'carton1': return { packed: 10, total: 15, percentage: 67 };
+        case 'carton2': return { packed: 8, total: 15, percentage: 53 };
+        case 'carton3': return { packed: 7, total: 20, percentage: 35 };
+        default: return { packed: 0, total: 0, percentage: 0 };
+      }
+    };
+
+    const { packed, total, percentage } = getProgressData();
+
     const getIcon = () => {
       switch (packageData.type) {
         case 'container': return <Layers className="h-5 w-5 text-primary" />;
@@ -265,31 +280,34 @@ export const ASNHierarchyView = ({ asn, onAssignToNode }: ASNHierarchyViewProps)
       }
     };
 
+    const marginClass = level === 0 ? '' : level === 1 ? 'ml-8' : 'ml-16';
+    const borderLeftClass = level > 0 ? 'border-l-2 border-muted pl-4' : '';
+
     return (
-      <Card className={`mb-4 ${level > 0 ? 'ml-6' : ''}`}>
+      <Card className={`mb-4 ${marginClass} ${borderLeftClass}`}>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3 flex-1">
               {packageData.children && (
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => togglePackageExpansion(packageData.id)}
-                  className="h-6 w-6 p-0"
+                  className="h-6 w-6 p-0 flex-shrink-0"
                 >
                   {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                 </Button>
               )}
               {getIcon()}
-              <div>
+              <div className="flex-1 min-w-0">
                 <CardTitle className={level > 0 ? "text-base" : "text-lg"}>{packageData.name}</CardTitle>
                 <p className="text-sm text-muted-foreground">
-                  {packageData.partNumbers.join(', ')}
+                  Level {level + 1} • {packageData.children ? `${packageData.children.length} child units` : 'End unit'}
                 </p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Badge variant="secondary">{serialCount} blocked</Badge>
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              <span className="text-sm text-muted-foreground">{packed}/{total} packed</span>
               <Button
                 size="sm"
                 onClick={() => onAssignToNode(packageData.partNumbers, {
@@ -300,6 +318,19 @@ export const ASNHierarchyView = ({ asn, onAssignToNode }: ASNHierarchyViewProps)
               >
                 Assign
               </Button>
+            </div>
+          </div>
+          
+          {/* Progress bar */}
+          <div className="mt-3 space-y-1">
+            <div className="w-full bg-muted rounded-full h-2">
+              <div 
+                className="bg-primary h-2 rounded-full transition-all duration-300" 
+                style={{ width: `${percentage}%` }}
+              />
+            </div>
+            <div className="text-xs text-muted-foreground">
+              {percentage}% packed
             </div>
           </div>
         </CardHeader>

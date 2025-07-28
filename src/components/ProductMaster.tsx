@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, Plus, Package, Eye } from "lucide-react";
+import { Search, Plus, Package, Eye, GitBranch } from "lucide-react";
 import { Product } from "@/types";
 import { ProductDetail } from "./ProductDetail";
 import { AddSerialsForm } from "./AddSerialsForm";
+import { AddChildPartsForm } from "./AddChildPartsForm";
 import { useSerialStore } from "@/hooks/useSerialStore";
 
 interface ProductMasterProps {
@@ -18,6 +19,7 @@ export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showAddSerials, setShowAddSerials] = useState<Product | null>(null);
+  const [showAddChildParts, setShowAddChildParts] = useState<Product | null>(null);
 
   const products = store?.products || [];
 
@@ -43,6 +45,23 @@ export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
   const handleCloseAddSerials = () => {
     setShowAddSerials(null);
   };
+
+  const handleShowAddChildParts = (product: Product) => {
+    setShowAddChildParts(product);
+  };
+
+  const handleCloseAddChildParts = () => {
+    setShowAddChildParts(null);
+  };
+
+  if (showAddChildParts) {
+    return (
+      <AddChildPartsForm
+        product={showAddChildParts}
+        onClose={handleCloseAddChildParts}
+      />
+    );
+  }
 
   if (showAddSerials) {
     return (
@@ -72,10 +91,16 @@ export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
             Manage product catalog and serial number assignments
           </p>
         </div>
-        <Button className="flex items-center space-x-2">
-          <Plus className="h-4 w-4" />
-          <span>Add Product</span>
-        </Button>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" className="flex items-center space-x-2">
+            <GitBranch className="h-4 w-4" />
+            <span>Manage Child Parts</span>
+          </Button>
+          <Button className="flex items-center space-x-2">
+            <Plus className="h-4 w-4" />
+            <span>Add Product</span>
+          </Button>
+        </div>
       </div>
 
       <div className="flex items-center space-x-4">
@@ -125,17 +150,31 @@ export const ProductMaster = ({ onProductSelect }: ProductMasterProps) => {
                 <span className="text-xs text-muted-foreground">
                   Updated {product.updated_date.toLocaleDateString()}
                 </span>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="h-8 px-2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleProductClick(product);
-                  }}
-                >
-                  <Eye className="h-3 w-3" />
-                </Button>
+                <div className="flex items-center space-x-1">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 px-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShowAddChildParts(product);
+                    }}
+                    title="Add child parts"
+                  >
+                    <GitBranch className="h-3 w-3" />
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 px-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleProductClick(product);
+                    }}
+                  >
+                    <Eye className="h-3 w-3" />
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
