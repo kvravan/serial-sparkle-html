@@ -140,6 +140,19 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
             >
               <Eye className="h-4 w-4" />
             </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0 hover:bg-primary/10"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Upload Child Serials clicked for serial:', serial.serial_number);
+                setShowUploadChildSerialsForm(true);
+              }}
+            >
+              <GitBranch className="h-4 w-4" />
+            </Button>
             {serial.status === 'unassigned' && (
               <Button 
                 variant="ghost" 
@@ -221,17 +234,6 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
             </Button>
           </div>
           
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => {
-              console.log('Upload Child Serials clicked');
-              setShowUploadChildSerialsForm(true);
-            }}
-          >
-            <GitBranch className="h-4 w-4 mr-2" />
-            Upload Child Serials
-          </Button>
           
           <Button 
             variant="outline" 
@@ -328,28 +330,41 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
                           <td className="p-4 text-sm">{serial.created_date.toLocaleDateString()}</td>
                           <td className="p-4">
                             <div className="flex space-x-1">
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
-                              className="h-8 w-8 p-0 hover:bg-primary/10"
-                              onClick={(e) => handleViewSerial(serial, e)}
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                              {serial.status === 'unassigned' && (
-                              <Button 
-                                variant="ghost" 
-                                size="sm" 
-                                className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handleDeleteSerial(serial.id);
-                                }}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                              )}
+                             <Button 
+                               variant="ghost" 
+                               size="sm" 
+                               className="h-8 w-8 p-0 hover:bg-primary/10"
+                               onClick={(e) => handleViewSerial(serial, e)}
+                             >
+                               <Eye className="h-4 w-4" />
+                             </Button>
+                             <Button 
+                               variant="ghost" 
+                               size="sm" 
+                               className="h-8 w-8 p-0 hover:bg-primary/10"
+                               onClick={(e) => {
+                                 e.preventDefault();
+                                 e.stopPropagation();
+                                 console.log('Upload Child Serials clicked for serial:', serial.serial_number);
+                                 setShowUploadChildSerialsForm(true);
+                               }}
+                             >
+                               <GitBranch className="h-4 w-4" />
+                             </Button>
+                               {serial.status === 'unassigned' && (
+                               <Button 
+                                 variant="ghost" 
+                                 size="sm" 
+                                 className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                 onClick={(e) => {
+                                   e.preventDefault();
+                                   e.stopPropagation();
+                                   handleDeleteSerial(serial.id);
+                                 }}
+                               >
+                                 <Trash2 className="h-4 w-4" />
+                               </Button>
+                               )}
                             </div>
                           </td>
                         </tr>
