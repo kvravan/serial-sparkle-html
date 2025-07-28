@@ -217,7 +217,7 @@ export const AddSerialsForm = ({ product, onClose }: AddSerialsFormProps) => {
       </div>
 
       <Tabs defaultValue="single" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="single" className="flex items-center space-x-2">
             <Plus className="h-4 w-4" />
             <span>Single Entry</span>
@@ -225,10 +225,6 @@ export const AddSerialsForm = ({ product, onClose }: AddSerialsFormProps) => {
           <TabsTrigger value="bulk" className="flex items-center space-x-2">
             <Hash className="h-4 w-4" />
             <span>Bulk Generate</span>
-          </TabsTrigger>
-          <TabsTrigger value="child" className="flex items-center space-x-2">
-            <GitBranch className="h-4 w-4" />
-            <span>Child Serials</span>
           </TabsTrigger>
         </TabsList>
 
@@ -320,6 +316,76 @@ export const AddSerialsForm = ({ product, onClose }: AddSerialsFormProps) => {
               >
                 {loading ? "Adding..." : "Add Serial Number"}
               </Button>
+
+              {/* Child Serials Section */}
+              <div className="pt-6 border-t space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label className="text-base font-medium">Child Serials</Label>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setShowChildSerialsPopup(true)}
+                    className="flex items-center space-x-2"
+                  >
+                    <GitBranch className="h-4 w-4" />
+                    <span>Add Child Serials</span>
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Add serials from immediate child parts used in manufacturing this component.
+                </p>
+                
+                {childSerials.length === 0 ? (
+                  <div className="text-center py-6 text-muted-foreground border-2 border-dashed rounded-lg">
+                    <GitBranch className="h-6 w-6 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">No child serials linked</p>
+                    <p className="text-xs">Click "Add Child Serials" to link serials from child parts</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="max-h-48 overflow-y-auto space-y-2 border rounded-lg p-3">
+                      {childSerials.map((serial) => (
+                        <div key={serial.id} className="flex items-center justify-between p-2 bg-muted/50 rounded">
+                          <div className="flex items-center space-x-2">
+                            <Badge variant="outline" className="text-xs">
+                              {serial.serial_number}
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">
+                              Part: {serial.part_number_id}
+                            </span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeChildSerial(serial.id)}
+                            className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button 
+                      onClick={() => {
+                        if (childSerials.length > 0) {
+                          toast({
+                            title: "Child serials linked",
+                            description: `${childSerials.length} child serials linked to ${product.buyer_part_number}.`
+                          });
+                          // In real app, this would save the child serial relationships
+                          setChildSerials([]);
+                        }
+                      }}
+                      disabled={childSerials.length === 0 || loading}
+                      className="w-full"
+                      variant="outline"
+                    >
+                      {loading ? "Linking..." : `Link ${childSerials.length} Child Serials`}
+                    </Button>
+                  </div>
+                )}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -445,78 +511,6 @@ export const AddSerialsForm = ({ product, onClose }: AddSerialsFormProps) => {
                 className="w-full"
               >
                 {loading ? "Generating..." : `Generate ${parseInt(endNumber) - parseInt(startNumber) + 1 || 0} Serial Numbers`}
-              </Button>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="child">
-          <Card>
-            <CardHeader>
-              <CardTitle>Add Child Serials</CardTitle>
-              <p className="text-sm text-muted-foreground">
-                Add serials from immediate child parts used in manufacturing
-              </p>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label>Selected Child Serials ({childSerials.length})</Label>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setShowChildSerialsPopup(true)}
-                  className="flex items-center space-x-2"
-                >
-                  <GitBranch className="h-4 w-4" />
-                  <span>Select Child Serials</span>
-                </Button>
-              </div>
-              
-              {childSerials.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground border-2 border-dashed rounded-lg">
-                  <GitBranch className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  <p>No child serials selected</p>
-                  <p className="text-xs">Click "Select Child Serials" to add serials from child parts</p>
-                </div>
-              ) : (
-                <div className="max-h-64 overflow-y-auto space-y-2 border rounded-lg p-3">
-                  {childSerials.map((serial) => (
-                    <div key={serial.id} className="flex items-center justify-between p-2 bg-muted/50 rounded">
-                      <div className="flex items-center space-x-2">
-                        <Badge variant="outline" className="text-xs">
-                          {serial.serial_number}
-                        </Badge>
-                        <span className="text-xs text-muted-foreground">
-                          Part: {serial.part_number_id}
-                        </span>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeChildSerial(serial.id)}
-                        className="h-6 w-6 p-0 text-destructive hover:text-destructive"
-                      >
-                        <X className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <Button 
-                onClick={() => {
-                  if (childSerials.length > 0) {
-                    toast({
-                      title: "Child serials linked",
-                      description: `${childSerials.length} child serials linked to ${product.buyer_part_number}.`
-                    });
-                    // In real app, this would save the child serial relationships
-                    setChildSerials([]);
-                  }
-                }}
-                disabled={childSerials.length === 0 || loading}
-                className="w-full"
-              >
-                {loading ? "Linking..." : `Link ${childSerials.length} Child Serials`}
               </Button>
             </CardContent>
           </Card>

@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Search, Plus, Download, Upload, Grid, List, Eye, Trash2 } from "lucide-react";
+import { ArrowLeft, Search, Plus, Download, Upload, Grid, List, Eye, Trash2, GitBranch } from "lucide-react";
 import { Product, SerialInventory, SerialStatus } from "@/types";
 import { StatusBadge } from "./StatusBadge";
 import { useSerialStore } from "@/hooks/useSerialStore";
 import { AddSerialsForm } from "./AddSerialsForm";
 import { ImportSerialsForm } from "./ImportSerialsForm";
 import { SerialDetail } from "./SerialDetail";
+import { UploadChildSerialsForm } from "./UploadChildSerialsForm";
 
 interface SerialManagementProps {
   product: Product;
@@ -22,6 +23,7 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
   const [serials, setSerials] = useState<SerialInventory[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
+  const [showUploadChildSerialsForm, setShowUploadChildSerialsForm] = useState(false);
   const [selectedSerial, setSelectedSerial] = useState<SerialInventory | null>(null);
   const [activeTab, setActiveTab] = useState("overview");
   const [previousViewMode, setPreviousViewMode] = useState<"grid" | "table">("grid");
@@ -74,6 +76,18 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
         product={product}
         onClose={() => {
           setShowImportForm(false);
+          setActiveTab("serials");
+        }}
+      />
+    );
+  }
+
+  if (showUploadChildSerialsForm) {
+    return (
+      <UploadChildSerialsForm
+        product={product}
+        onClose={() => {
+          setShowUploadChildSerialsForm(false);
           setActiveTab("serials");
         }}
       />
@@ -206,6 +220,18 @@ export const SerialManagement = ({ product, onClose }: SerialManagementProps) =>
               <List className="h-4 w-4" />
             </Button>
           </div>
+          
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => {
+              console.log('Upload Child Serials clicked');
+              setShowUploadChildSerialsForm(true);
+            }}
+          >
+            <GitBranch className="h-4 w-4 mr-2" />
+            Upload Child Serials
+          </Button>
           
           <Button 
             variant="outline" 
