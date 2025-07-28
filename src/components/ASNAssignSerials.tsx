@@ -54,8 +54,8 @@ export const ASNAssignSerials = ({ asn, open, onClose }: ASNAssignSerialsProps) 
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden">
-        <DialogHeader>
+      <DialogContent className="max-w-7xl max-h-[90vh] flex flex-col">
+        <DialogHeader className="flex-shrink-0">
           <div className="flex items-center justify-between">
             <div>
               <DialogTitle className="text-2xl font-bold">Assign Serials</DialogTitle>
@@ -67,8 +67,8 @@ export const ASNAssignSerials = ({ asn, open, onClose }: ASNAssignSerialsProps) 
           </div>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
-          <TabsList className="mx-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0">
+          <TabsList className="mx-6 flex-shrink-0">
             <TabsTrigger value="hierarchy" className="flex items-center space-x-2">
               <Settings className="h-4 w-4" />
               <span>ASN Hierarchy View</span>
@@ -79,14 +79,14 @@ export const ASNAssignSerials = ({ asn, open, onClose }: ASNAssignSerialsProps) 
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="hierarchy" className="mx-6 mt-6 flex-1 overflow-hidden">
+          <TabsContent value="hierarchy" className="mx-6 mt-6 flex-1 flex flex-col min-h-0">
             <ASNHierarchyViewTabs
               asn={asn}
               onAssignToNode={handleAssignToNode}
             />
           </TabsContent>
 
-          <TabsContent value="serial-grid" className="mx-6 mt-6 flex-1 overflow-hidden">
+          <TabsContent value="serial-grid" className="mx-6 mt-6 flex-1 flex flex-col min-h-0">
             <SerialGridView
               asn={asn}
               partNumbers={serialGridFilters.partNumbers}

@@ -105,9 +105,9 @@ export const ASNHierarchyViewTabs = ({ asn, onAssignToNode }: ASNHierarchyViewTa
   };
 
   return (
-    <div className="space-y-4 h-full flex flex-col">
+    <div className="h-full flex flex-col overflow-y-auto">
       {/* Part Number Filter */}
-      <div className="flex items-center space-x-4 pb-4 border-b">
+      <div className="flex items-center space-x-4 pb-4 border-b flex-shrink-0">
         <Filter className="h-4 w-4 text-muted-foreground" />
         <span className="text-sm font-medium">Filter by Part Number:</span>
         <Select value={selectedPartNumber} onValueChange={setSelectedPartNumber}>
@@ -130,8 +130,8 @@ export const ASNHierarchyViewTabs = ({ asn, onAssignToNode }: ASNHierarchyViewTa
         )}
       </div>
 
-      <Tabs defaultValue="items" className="flex-1 overflow-hidden">
-        <TabsList>
+      <Tabs defaultValue="items" className="flex-1 flex flex-col min-h-0">
+        <TabsList className="grid w-full grid-cols-2 flex-shrink-0">
           <TabsTrigger value="items" className="flex items-center space-x-2">
             <Package className="h-4 w-4" />
             <span>Items & Lots</span>
@@ -142,8 +142,8 @@ export const ASNHierarchyViewTabs = ({ asn, onAssignToNode }: ASNHierarchyViewTa
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="items" className="mt-6 flex-1 overflow-auto">
-          <div className="space-y-4">
+        <TabsContent value="items" className="mt-6 flex-1 flex flex-col min-h-0">
+          <div className="flex-1 overflow-y-auto space-y-4">
             {filteredASN.items.map((item) => {
               const product = getProductForPartNumber(item.buyer_part_number);
               const itemSerials = getSerialsForPartNumber(item.buyer_part_number);
@@ -255,8 +255,8 @@ export const ASNHierarchyViewTabs = ({ asn, onAssignToNode }: ASNHierarchyViewTa
           </div>
         </TabsContent>
 
-        <TabsContent value="packing" className="mt-6 flex-1 overflow-auto">
-          <div className="space-y-4">
+        <TabsContent value="packing" className="mt-6 flex-1 flex flex-col min-h-0">
+          <div className="flex-1 overflow-y-auto space-y-4">
             {generatePackageStructure().map((container) => (
               <Card key={container.id} className="border-l-4 border-l-blue-500">
                 <CardHeader className="pb-3">

@@ -867,6 +867,36 @@ class SerialStoreManager {
                           ]
                         }
                       ]
+                    },
+                    {
+                      id: 'carton4',
+                      name: 'Master Carton MC-004',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box5',
+                          name: 'Inner Box IB-005',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit9',
+                              name: 'Unit U-009',
+                              type: 'unit',
+                              serial_number: 'COOL008AIO001',
+                              part_number: 'COOL-008-AIO'
+                            },
+                            {
+                              id: 'unit10',
+                              name: 'Unit U-010',
+                              type: 'unit',
+                              serial_number: 'COOL008AIO002',
+                              part_number: 'COOL-008-AIO'
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -1047,6 +1077,58 @@ class SerialStoreManager {
                               part_number: 'FAN-009-120MM'
                             }
                           ]
+                        },
+                        {
+                          id: 'box8',
+                          name: 'Inner Box IB-008',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit15',
+                              name: 'Unit U-015',
+                              type: 'unit',
+                              serial_number: 'FAN009120MM003',
+                              part_number: 'FAN-009-120MM'
+                            },
+                            {
+                              id: 'unit16',
+                              name: 'Unit U-016',
+                              type: 'unit',
+                              serial_number: 'FAN009120MM004',
+                              part_number: 'FAN-009-120MM'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton6',
+                      name: 'Master Carton MC-006',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box9',
+                          name: 'Inner Box IB-009',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit17',
+                              name: 'Unit U-017',
+                              type: 'unit',
+                              serial_number: 'GPU004RTX003',
+                              part_number: 'GPU-004-RTX'
+                            },
+                            {
+                              id: 'unit18',
+                              name: 'Unit U-018',
+                              type: 'unit',
+                              serial_number: 'GPU004RTX004',
+                              part_number: 'GPU-004-RTX'
+                            }
+                          ]
                         }
                       ]
                     }
@@ -1171,6 +1253,58 @@ class SerialStoreManager {
                               type: 'unit',
                               serial_number: 'CASE007ATX002',
                               part_number: 'CASE-007-ATX'
+                            }
+                          ]
+                        },
+                        {
+                          id: 'box10',
+                          name: 'Inner Box IB-010',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit19',
+                              name: 'Unit U-019',
+                              type: 'unit',
+                              serial_number: 'CASE007ATX003',
+                              part_number: 'CASE-007-ATX'
+                            },
+                            {
+                              id: 'unit20',
+                              name: 'Unit U-020',
+                              type: 'unit',
+                              serial_number: 'CASE007ATX004',
+                              part_number: 'CASE-007-ATX'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton8',
+                      name: 'Master Carton MC-008',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box11',
+                          name: 'Inner Box IB-011',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit21',
+                              name: 'Unit U-021',
+                              type: 'unit',
+                              serial_number: 'PSU006850W003',
+                              part_number: 'PSU-006-850W'
+                            },
+                            {
+                              id: 'unit22',
+                              name: 'Unit U-022',
+                              type: 'unit',
+                              serial_number: 'PSU006850W004',
+                              part_number: 'PSU-006-850W'
                             }
                           ]
                         }
@@ -1333,6 +1467,58 @@ class SerialStoreManager {
                               part_number: 'KB-011-MECH'
                             }
                           ]
+                        },
+                        {
+                          id: 'box12',
+                          name: 'Inner Box IB-012',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit23',
+                              name: 'Unit U-023',
+                              type: 'unit',
+                              serial_number: 'MOUSE012WIRELESS001',
+                              part_number: 'MOUSE-012-WIRELESS'
+                            },
+                            {
+                              id: 'unit24',
+                              name: 'Unit U-024',
+                              type: 'unit',
+                              serial_number: 'MOUSE012WIRELESS002',
+                              part_number: 'MOUSE-012-WIRELESS'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton10',
+                      name: 'Master Carton MC-010',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box13',
+                          name: 'Inner Box IB-013',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit25',
+                              name: 'Unit U-025',
+                              type: 'unit',
+                              serial_number: 'MON01027IN003',
+                              part_number: 'MON-010-27IN'
+                            },
+                            {
+                              id: 'unit26',
+                              name: 'Unit U-026',
+                              type: 'unit',
+                              serial_number: 'MON01027IN004',
+                              part_number: 'MON-010-27IN'
+                            }
+                          ]
                         }
                       ]
                     }
@@ -1447,6 +1633,58 @@ class SerialStoreManager {
                               type: 'unit',
                               serial_number: 'NET013WIFI6002',
                               part_number: 'NET-013-WIFI6'
+                            }
+                          ]
+                        },
+                        {
+                          id: 'box13',
+                          name: 'Inner Box IB-013',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit25',
+                              name: 'Unit U-025',
+                              type: 'unit',
+                              serial_number: 'CABLE014USBC001',
+                              part_number: 'CABLE-014-USB-C'
+                            },
+                            {
+                              id: 'unit26',
+                              name: 'Unit U-026',
+                              type: 'unit',
+                              serial_number: 'CABLE014USBC002',
+                              part_number: 'CABLE-014-USB-C'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton11',
+                      name: 'Master Carton MC-011',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box14',
+                          name: 'Inner Box IB-014',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit27',
+                              name: 'Unit U-027',
+                              type: 'unit',
+                              serial_number: 'ADAPTER015POWER001',
+                              part_number: 'ADAPTER-015-POWER'
+                            },
+                            {
+                              id: 'unit28',
+                              name: 'Unit U-028',
+                              type: 'unit',
+                              serial_number: 'ADAPTER015POWER002',
+                              part_number: 'ADAPTER-015-POWER'
                             }
                           ]
                         }
@@ -1593,6 +1831,58 @@ class SerialStoreManager {
                               type: 'unit',
                               serial_number: 'MIC017CONDENSER002',
                               part_number: 'MIC-017-CONDENSER'
+                            }
+                          ]
+                        },
+                        {
+                          id: 'box15',
+                          name: 'Inner Box IB-015',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit29',
+                              name: 'Unit U-029',
+                              type: 'unit',
+                              serial_number: 'WEBCAM0184K001',
+                              part_number: 'WEBCAM-018-4K'
+                            },
+                            {
+                              id: 'unit30',
+                              name: 'Unit U-030',
+                              type: 'unit',
+                              serial_number: 'WEBCAM0184K002',
+                              part_number: 'WEBCAM-018-4K'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: 'carton13',
+                      name: 'Master Carton MC-013',
+                      type: 'carton',
+                      dimensions: '24in x 18in x 12in',
+                      children: [
+                        {
+                          id: 'box16',
+                          name: 'Inner Box IB-016',
+                          type: 'box',
+                          dimensions: '12in x 8in x 6in',
+                          children: [
+                            {
+                              id: 'unit31',
+                              name: 'Unit U-031',
+                              type: 'unit',
+                              serial_number: 'SPEAKER0162.1003',
+                              part_number: 'SPEAKER-016-2.1'
+                            },
+                            {
+                              id: 'unit32',
+                              name: 'Unit U-032',
+                              type: 'unit',
+                              serial_number: 'SPEAKER0162.1004',
+                              part_number: 'SPEAKER-016-2.1'
                             }
                           ]
                         }

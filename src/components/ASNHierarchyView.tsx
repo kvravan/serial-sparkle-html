@@ -344,15 +344,15 @@ export const ASNHierarchyView = ({ asn, onAssignToNode }: ASNHierarchyViewProps)
 
   return (
     <div className="h-full flex flex-col">
-      <Tabs defaultValue="items" className="h-full flex flex-col">
-        <TabsList className="grid w-full grid-cols-2 mb-4">
+      <Tabs defaultValue="items" className="h-full flex flex-col min-h-0">
+        <TabsList className="grid w-full grid-cols-2 mb-4 flex-shrink-0">
           <TabsTrigger value="items">Items & Lots</TabsTrigger>
           <TabsTrigger value="packages">Packing Structure</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="items" className="flex-1 overflow-hidden">
-          <div className="h-full border rounded-lg">
-            <div className="h-full overflow-y-auto p-4 space-y-4" style={{ maxHeight: '500px' }}>
+        <TabsContent value="items" className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 border rounded-lg flex flex-col min-h-0">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {asn.items.map((item) => (
                 <ItemNode key={item.id} item={item} />
               ))}
@@ -370,9 +370,9 @@ export const ASNHierarchyView = ({ asn, onAssignToNode }: ASNHierarchyViewProps)
           </div>
         </TabsContent>
 
-        <TabsContent value="packages" className="flex-1 overflow-hidden">
-          <div className="h-full border rounded-lg">
-            <div className="h-full overflow-y-auto p-4 space-y-4" style={{ maxHeight: '500px' }}>
+        <TabsContent value="packages" className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 border rounded-lg flex flex-col min-h-0">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {mockPackageStructure.map((packageData) => (
                 <PackageNode key={packageData.id} packageData={packageData} />
               ))}
